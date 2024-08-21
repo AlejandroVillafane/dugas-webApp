@@ -1,0 +1,37 @@
+<div class="container text-center">
+    <h3>Moviles</h3><br>
+    <div class="row align-items-start">
+        <div class="col">
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Modelo</th>
+                    <th>Patente</th>
+                    <th>Interno</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </thead>
+                <tbody>
+                    @if(moviles.length > 0){
+                        @for(movil of moviles ; track $index){
+                            <tr>
+                                <td>{{movil.modelo}}</td>
+                                <td>{{movil.dominio}}</td>
+                                <td>{{movil.numeroInterno}}</td>
+                                <td><button class="btn btn-sm btn-success">Editar</button></td>
+                                <td><button (click)="onRemoveMovil(movil.id)" class="btn btn-sm btn-danger">Eliminar</button></td>
+                            </tr>
+                        }
+                    }@else{
+                        <tr>
+                            <td colspan="5">No hay Moviles</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+            
+        <div class="col">
+            <movil-form (crearMovilEvent)="agregarMovil($event)"></movil-form>
+        </div>
+    </div>
+</div>

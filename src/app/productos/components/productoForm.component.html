@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()">
+    <div>
+        <label for="tipoProducto">Tipo de producto</label>
+        <select class="form-select" id="tipoProducto" [(ngModel)]="producto.tipoProducto" name="tipoProducto">
+            <option selected>Seleccione una opcion</option>
+            @for(tipoProducto of tipoProductoList; track $index){
+                <option [ngValue]="tipoProducto">{{tipoProducto.nombre}}</option>
+            }
+       </select>
+    </div>
+    
+    <div>
+       <label for="tipoEnvase">Tipo de envase</label>
+       <select class="form-select" id="tipoEnvase" [(ngModel)]="producto.tipoEnvase" name="tipoEnvase">
+            <option selected disabled>Seleccione una opcion</option>
+            @for(tipoEnvase of tipoEnvaseList; track $index){
+                <option [ngValue]="tipoEnvase">{{tipoEnvase.nombre+" "+tipoEnvase.capacidad+" Kg."}}</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <button  type="submit" class="btn btn-primary my-2">Guardar</button>
+        <button type="button" class="btn btn-success my-2 mx-2" >Limpiar</button>
+    </div>
+
+</form>

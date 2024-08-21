@@ -1,0 +1,25 @@
+<div class="container text-center">
+    <h3>Tipos de Productos</h3><br>
+    <div class="row align-items-start">
+        <div class="col">
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tipoProducto of tipoProductoList; index as i">
+                        <td>{{tipoProducto.nombre}}</td>
+                        <td><button class="btn btn-sm btn-success">Editar</button></td>
+                        <td><button class="btn btn-sm btn-danger" (click)="eliminarTipoProducto(tipoProducto.id)">Eliminar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col">
+            <tipoProductoForm-component (crearTipoProductoEvent)="crearTipoProducto($event)"></tipoProductoForm-component>
+        </div>
+    </div>
+</div>

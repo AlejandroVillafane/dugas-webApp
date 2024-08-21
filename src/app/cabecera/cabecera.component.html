@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">DUGAS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              ABM
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmLegajo')">Legajos</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmMovil')">Moviles</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmBanco')">Bancos</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmTarjeta')">Tarjetas</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmProducto')">Productos</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmTipoEnvase')">Tipos de Envase</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmTipoProducto')">Tipos de Producto</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmRubro')">Rubros</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('abmConceptos')">Conceptos</a></li>
+
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Rendiciones
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="moduloSelect('rendiciones')">Rendiciones</a></li>
+              <li><a class="dropdown-item"  (click)="moduloSelect('rendicionForm')">Nueva rendicion</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Egresos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="moduloSelect('egresos')">Nuevo Egreso</a></li>
+              <li><a class="dropdown-item" (click)="moduloSelect('egresoList')">Egresos</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Cobranzas
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="moduloSelect('cobranzas')">Nueva Cobranza</a></li>
+              <li><a class="dropdown-item" (click)="moduloSelect('cobranzaList')">Cobranzas</a></li>
+            </ul>
+          </li>
+        </ul>
+        <button class="btn btn-outline-success" (click)="cerrarSesion()">Cerrar Sesion</button>
+      </div>
+    </div>
+  </nav>

@@ -1,0 +1,14 @@
+<form (ngSubmit)="crearTipoEnvase()">
+    <div>
+        <input class="form-control my-2" placeholder="Nombre" name="nombre" [(ngModel)]="tipoEnvase.nombre">
+    </div>
+
+    <div>
+        <input class="form-control my-2" placeholder="capacidad" name="capacidad" [(ngModel)]="tipoEnvase.capacidad">
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary my-2">Guardar</button>
+        <button type="button" class="btn btn-success my-2 mx-2" >Limpiar</button>
+    </div>
+</form>

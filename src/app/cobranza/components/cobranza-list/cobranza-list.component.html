@@ -1,0 +1,35 @@
+<div class="container text-center">
+    <h3>Egresos</h3><br>
+    <div class="row align-items-start">
+        <div class="col">
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Fecha</th>
+                    <th>Legajo</th>
+                    <th>Cliente</th>
+                    <th>Recibo</th>
+                    <th>Observacion</th>
+                    <th>Importe</th>
+                    
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let cobranza of cobranzas; index as i">
+                        <td>{{cobranza.fecha}}</td>
+                        <td>{{cobranza.legajo.numeroLegajo}}</td>
+                        <td>{{cobranza.cliente}}</td>
+                        <td>{{cobranza.recibo}}</td>
+                        <td>{{cobranza.observacion}}</td>
+                        <td>{{cobranza.importe}}</td>
+                        
+
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        
+    </div>
+</div>
+

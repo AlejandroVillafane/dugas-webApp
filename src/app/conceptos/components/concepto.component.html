@@ -1,0 +1,34 @@
+<div class="container text-center">
+    <h3>Conceptos</h3><br>
+    <div class="row align-items-start">
+        <div class="col">
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Rubro</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let concepto of conceptoList; index as i">
+                        <td>{{concepto.nombre}}</td>
+                        <td>@if(concepto.ingreso == true){
+                           Ingreso  
+                        }
+                        @if(concepto.egreso == true){
+                             Egreso
+                        }</td>
+                        <td>{{concepto.rubro.nombre}}</td>
+                        <td><button class="btn btn-sm btn-success" >Editar</button></td>
+                        <td><button class="btn btn-sm btn-danger" (click)="eliminarConcepto(concepto.id)">Eliminar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col">
+            <conceptoForm-component [rubroList]="rubroList" (crearConceptoEvent)="crearConcepto($event)"></conceptoForm-component>
+        </div>
+    </div>
+</div>

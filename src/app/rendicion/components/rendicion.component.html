@@ -1,0 +1,585 @@
+
+        <h3>Rendiciones</h3><br>
+        
+           
+                <table  class="table table-hover" border="2">
+                    <thead>
+                        <th></th>
+                        <th>Legajo</th>
+                        <th>Movil</th>
+                        <th>Cont.</th>
+                        <th>C.C</th>
+                        <th>Transf.</th>
+                        <th>C. Dni</th>
+                        <th>M.P.</th>
+                        <th>Tarjeta</th>
+                        <th>App YPF</th>
+                        <th>Cheques</th>
+                        <th>Otros</th>
+                        <th>Ef.</th>
+                        <th>No Ef.</th>
+                        <th></th>
+                        
+
+                    </thead>
+                    <tbody>
+                        @if(rendiciones.length > 0){
+                            @for(rendicion of rendiciones ; track $index){
+                                <tr>
+                                    <td>{{rendicion.id}}</td>
+                                    <td>{{rendicion.legajo.numeroLegajo}}</td>
+                                    <td>{{rendicion.movil.numeroInterno}}</td>
+                                    <td>{{rendicion.ventaContado | currencyFormat}}</td>
+                                    <td>{{rendicion.ventaCuentaCorriente | currencyFormat}}</td>
+                                    <td>{{rendicion.ventaTransferencia | currencyFormat}}</td>
+                                    <td>{{rendicion.ventaCuentaDNI | currencyFormat}}</td>
+                                    <td>{{rendicion.ventaMercadoPago | currencyFormat}}</td>
+                                    <td>{{rendicion.ventaTarjetaCredito | currencyFormat}}</td>
+                                    <td>{{rendicion.ventaAppYPF | currencyFormat}}</td>
+                                    <td>{{rendicion.ventaCheques | currencyFormat}}</td>
+                                    <td>{{rendicion.ventaOtros | currencyFormat}}</td>
+                                    <td>{{rendicion.totalEfectivo | currencyFormat}}</td>
+                                    <td>{{rendicion.totalNoEfectivo | currencyFormat}}</td>
+                                    <td><input type="button" (click)="buscarRendicion(rendicion.id)" value="Ver"></td>
+                                    
+                                </tr>
+                            }
+                        }@else{
+                            <tr>
+                                <td colspan="5">No hay Rendiciones</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+           
+                
+           
+
+<!--
+<form (ngSubmit)="guardarRendicion()">
+  <div class="container text-center">
+    <div class="row align-items-start">
+        <div class="col">
+            <input 
+                type="number"
+                placeholder="Legajo" 
+                name="legajo" 
+                [(ngModel)]="rendicion.legajoId"
+            >
+            <input 
+                type="number"    
+                placeholder="Movil" 
+                name="movil" 
+                [(ngModel)]="rendicion.movilId"
+            >
+        </div>
+    </div>
+    
+    <div class="row align-items-start">
+      
+
+      <div class="col">
+        <h3>Planilla de rendicion</h3>
+        <div class="mb-3">
+            <h5>Venta de unidades Fisicas</h5>
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Kg vendidos</th>
+                </thead>
+                <tbody>
+                   @if(productos){
+                        @for (producto of productos; track $index) {
+                            
+                            <tr>
+                                <td>{{producto.nombre}}</td>
+                                <td>
+                                    <input 
+                                        type="number"
+                                        placeholder="Cantidad" 
+                                        name="cantidadProducto" 
+                                        [(ngModel)]="producto.cantidadVendida"
+                                        (ngModelChange)="actualizarvalores(producto)"
+                                        > Unidades
+                                </td>
+                                <td>{{producto.kgVendidos}} Kg</td>
+                            </tr>
+                        }
+                        
+                   }@else {
+                    <tr><td colspan="3">No hay productos</td></tr>
+                   }
+                   
+                    <tr>
+                        <td><b>Total</b></td>
+                        <td><b>{{totalCantidadProductoVendido}} Unidades</b></td>
+                        <td><b>{{totalCantidadKgProductoVendido}} Kg</b></td>
+                    </tr>
+                </tbody>
+                
+                    
+                
+            </table>
+        </div>
+
+        <div class="mb-3">
+            <h5>Venta en pesos</h5>
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Venta Contado</th>
+                    <th>Venta Cuenta corriente</th>
+                    <th>Venta total</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" placeholder="Venta Contado" name="ventaContado" [(ngModel)]="rendicion.ventaContado" (ngModelChange)="actualizarTotalEfectivo()"></td>
+                        <td><input type="number" placeholder="Venta Cuenta Corriente" name="ventaCuentaCorriente" [(ngModel)]="rendicion.ventaCuentaCorriente"></td>
+                        <td><b>{{+rendicion.ventaContado + +rendicion.ventaCuentaCorriente}}</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mb-3">
+            <h5>Otros Ingresos</h5>
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Cliente</th>
+                    <th>Concepto</th>
+                    <th>Importe</th>
+                    <th>Accion</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input placeholder="Cliente" name="clienteOtroIngreso" [(ngModel)]="otroIngreso.cliente"></td>
+                        <td><input placeholder="Concepto" name="conceptoOtroIngreso" [(ngModel)]="otroIngreso.concepto"></td>
+                        <td><input type="number" placeholder="Importe" name="importeOtroIngreso" [(ngModel)]="otroIngreso.importe"></td>
+                        <td><input type="button" (click)="agregarOtroIngreso()" class="btn btn-sm btn-success" value="Agregar"></td>
+                    </tr>
+                    @for (otroIngreso of otroIngresoList; track $index) {
+                        <tr>
+                            <td>{{otroIngreso.cliente}}</td>
+                            <td>{{otroIngreso.concepto}}</td>
+                            <td>{{otroIngreso.importe}}</td>
+                            <td><input type="button" value="Eliminar" (click)="eliminarOtroIngreso($index)" class="btn btn-sm btn-danger"></td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>{{otrosIngresos}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+        <div class="mb-3">
+            <h5>Rendicion</h5>
+            <div class="row">
+                <div class="col">
+                    Con Transferencia
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <th>Cliente</th>
+                            <th>Banco</th>
+                            <th>Importe</th>
+                            <th>Accion</th>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td><input placeholder="Cliente" name="tansferenciaCliente" [(ngModel)]="rendicionConTransferencia.cliente"></td>
+                                <td>@if (bancos.length >  0) {
+                                        <select  name="bancoId" class="form-select" aria-label="Default select example" [(ngModel)]="rendicionConTransferencia.banco">
+                                            <option value="" disabled selected>Banco</option>
+                                            @for (banco of bancos; track $index) {
+                                                <option value="{{banco}}" [ngValue]="banco">{{banco.nombre}}</option>
+                                            }
+                                            
+                                
+                                        </select>
+                                    }@else {
+                                        No hay resultados para bancos
+                                    }
+                                </td>
+                                <td><input type="number" placeholder="Importe" name="transferenciaImporte" [(ngModel)]="rendicionConTransferencia.importe"></td>
+                                <td><input type="button"  (click)="agregarRendicionTransferencia()" class="btn btn-sm btn-success" value="Agregar"></td>
+                            </tr>
+                            @for (rendicionConTransferencia of rendicionConTransferenciaList; track $index) {
+                                <tr>
+                                    <td>{{rendicionConTransferencia.cliente}}</td>
+                                    <td>{{rendicionConTransferencia.banco.nombre}}</td>
+                                    <td>{{rendicionConTransferencia.importe}}</td>
+                                    <td><input type="button"  (click)="eliminarRendicionTransferencia($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+                                </tr>
+                            }
+
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>{{rendicion.ventaTransferencia}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                   Con Cuenta DNI
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <th>Cliente</th>
+                            <th>Observacion</th>
+                            <th>Importe</th>
+                            <th>Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input placeholder="Cliente" name="cuentaDniCliente" [(ngModel)]="rendicionCuentaDni.cliente"></td>
+                                <td><input placeholder="Observacion" name="cuentaDniObservacion"  [(ngModel)]="rendicionCuentaDni.observacion"></td>
+                                <td><input type="number" placeholder="Importe" name="cuentaDniImporte"  [(ngModel)]="rendicionCuentaDni.importe"></td>
+                                <td><input type="button" (click)="agregarRendicionCuentaDni()" class="btn btn-sm btn-success" value="Agregar"></td>
+                            </tr>
+                            @for (rendicion of rendicionCuentaDniList; track $index) {
+                                <tr>
+                                    <td>{{rendicion.cliente}}</td>
+                                    <td>{{rendicion.observacion}}</td>
+                                    <td>{{rendicion.importe}}</td>
+                                    <td><input type="button"  (click)="eliminarRendicionCuentaDni($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>{{rendicion.ventaCuentaDNI}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row align-items-start">
+                <div class="col">
+                    Con Mercado Pago
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <th>Cliente</th>
+                            <th>Observacion</th>
+                            <th>Importe</th>
+                            <th>Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input placeholder="Cliente" name="mercadoPagoCliente" [(ngModel)]="rendicionMercadoPago.cliente"></td>
+                                <td><input placeholder="Observacion" name="mercadoPagoObservacion" [(ngModel)]="rendicionMercadoPago.observacion"></td>
+                                <td><input type="number" placeholder="Importe" name="mercadoPagoImporte" [(ngModel)]="rendicionMercadoPago.importe"></td>
+                                <td><input type="button" (click)="agregarRendicionMercadopago()" class="btn btn-sm btn-success" value="Agregar"></td>
+                            </tr>
+                            @for (rendicion of rendicionMercadoPagoList; track $index) {
+                                <tr>
+                                    <td>{{rendicion.cliente}}</td>
+                                    <td>{{rendicion.observacion}}</td>
+                                    <td>{{rendicion.importe}}</td>
+                                    <td><input type="button"  (click)="eliminarRendicionMercadoPago($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>{{rendicion.ventaMercadoPago}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    Con TD/TC
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <th>Cliente</th>
+                            <th>Tarjeta</th>
+                            <th>Importe</th>
+                            <th>Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input placeholder="Cliente" name="tdtcCliente" [(ngModel)]="rendicionTDTC.cliente"></td>
+                                <td>
+                                    @if (tarjetas.length > 0) {
+                                        <select class="form-select" aria-label="Default select example" name="tdtcTarjeta" [(ngModel)]="rendicionTDTC.tarjeta">
+                                            <option value="" disabled selected>Tarjeta</option>
+                                            @for (tarjeta of tarjetas; track $index) {
+                                                <option value="{{tarjeta}}" [ngValue]="tarjeta">{{tarjeta.nombre}}</option>
+                                            }
+                                        </select>
+                                    }@else {
+                                        No se encontraron Tarjetas
+                                    }
+                                </td>
+                                <td><input type="number" [(ngModel)]="rendicionTDTC.importe" placeholder="Importe" name="tdtcImporte"></td>
+                                <td><input type="button" (click)="agregarRendicionTDTC()" class="btn btn-sm btn-success" value="Agregar"></td>
+                            </tr>
+                            @for (rendicionTDTC of rendicionTDTCList; track $index) {
+                                <tr>
+                                    <td>{{rendicionTDTC.cliente}}</td>
+                                    <td>{{rendicionTDTC.tarjeta.nombre}}</td>
+                                    <td>{{rendicionTDTC.importe}}</td>
+                                    <td><input type="button"  (click)="eliminarRendicionTDTC($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>{{rendicion.ventaTarjetaCredito}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row align-items-start">
+                <div class="col">
+                    Otros
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <th>Cliente</th>
+                            <th>Observacion</th>
+                            <th>Importe</th>
+                            <th>Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input placeholder="Cliente" name="otrosCliente"  [(ngModel)]="rendicionOtros.cliente"></td>
+                                <td><input placeholder="Observacion" name="otrosObservacion"  [(ngModel)]="rendicionOtros.observacion"></td>
+                                <td><input type="number" placeholder="Importe" name="otrosImporte"  [(ngModel)]="rendicionOtros.importe"></td>
+                                <td><input type="button" (click)="agregarRendicionOtros()" class="btn btn-sm btn-success" value="Agregar"></td>
+                            </tr>
+                            @for (rendicion of rendicionOtrosList; track $index) {
+                                <tr>
+                                    <td>{{rendicion.cliente}}</td>
+                                    <td>{{rendicion.observacion}}</td>
+                                    <td>{{rendicion.importe}}</td>
+                                    <td><input type="button"  (click)="eliminarRendicionOtros($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>{{rendicion.ventaOtros}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    App YPF
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <th>Cliente</th>
+                            <th>Observaciones</th>
+                            <th>Importe</th>
+                            <th>Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input placeholder="Cliente" name="ypfCliente" [(ngModel)]="rendicionYPF.cliente"></td>
+                                <td><input placeholder="Observacion" name="ypfObservacion" [(ngModel)]="rendicionYPF.observacion"></td>
+                                <td><input type="number" placeholder="Importe" name="ypfImporte" [(ngModel)]="rendicionYPF.importe"></td>
+                                <td><input type="button" (click)="agregarRendicionYPF()" class="btn btn-sm btn-success" value="Agregar"></td>
+                            </tr>
+                            @for (rendicion of rendicionYPFList; track $index) {
+                                <tr>
+                                    <td>{{rendicion.cliente}}</td>
+                                    <td>{{rendicion.observacion}}</td>
+                                    <td>{{rendicion.importe}}</td>
+                                    <td><input type="button" (click)="eliminarRendicionYPF($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>{{rendicion.ventaAppYPF}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
+
+            <div class="row align-items-start">
+                <div class="col">
+                    Cheques
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <th>Cliente</th>
+                            <th>Nro</th>
+                            <th>Banco</th>
+                            <th>Fecha</th>
+                            <th>Importe</th>
+                            <th>Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input  placeholder="Cliente" name="chequeCliente" [(ngModel)]="rendicionCheque.cliente"></td>
+                                <td><input placeholder="Numero de Cheque" name="numeroCheque" [(ngModel)]="rendicionCheque.numeroCheque" type="number"></td>
+                                <td>
+                                    @if (bancos.length >  0) {
+                                    <select name="bancoId" class="form-select" aria-label="Default select example" [(ngModel)]="rendicionCheque.banco">
+                                        <option value="" disabled selected>Banco</option>
+                                        @for (banco of bancos; track $index) {
+                                            <option value="{{banco.id}}" [ngValue]="banco" >{{banco.nombre}}</option>
+                                        }
+                                        
+                            
+                                    </select>
+                                    }@else {
+                                        No hay resultados para bancos
+                                    }
+                                </td>
+                                <td><input type="date"  name="chequeFecha" [(ngModel)]="rendicionCheque.fecha"></td>
+                                <td><input type="number" placeholder="Importe" name="chequeImporte" [(ngModel)]="rendicionCheque.importe"></td>
+                                <td><input type="button" (click)="agregarRendicionCheque()" class="btn btn-sm btn-success" value="Agregar"></td>
+                            </tr>
+                            @for (rendicion of rendicionChequeList; track $index) {
+                                <tr>
+                                    <td>{{rendicion.cliente}}</td>
+                                    <td>{{rendicion.numeroCheque}}</td>
+                                    <td>{{rendicion.banco.nombre}}</td>
+                                    <td>{{rendicion.fecha}}</td>
+                                    <td>{{rendicion.importe}}</td>
+                                    <td><input type="button" (click)="eliminarRendicionCheque($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="4"></td>
+                                <td>{{rendicion.ventaCheques}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                
+            </div>
+
+            <div class="row align-items-start">
+                <div class="col">
+                    <table class="table table-hover" border="2">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="#totalNoEfectivo">Total No Efectivo </label>
+                                    <input disabled id="totalNoEfectivo" placeholder="Total No Efectivo" name="totalNoEfectivo" value={{rendicion.totalNoEfectivo}}>
+                                </td>
+                                <td>
+                                    <label>Total Efectivo</label>
+                                    <input disabled placeholder="Total Efectivo" name ="totalEfectivo" value={{rendicion.totalEfectivo}}>
+                                    @if(flagDiferenciasEfectivo == 0){
+                                        <h5>No hay Diferencias</h5>
+                                    }@else if(flagDiferenciasEfectivo == 1){
+                                        <h5>Hay mas Efectivo</h5>
+
+                                    }@else if(flagDiferenciasEfectivo == -1){
+                                        <h5>Falta Efectivo</h5>
+
+                                    }
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+
+            <div class="row align-items-start">
+                <div class="col">
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <th>Billete</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </thead>
+                        <tbody>
+                            @for (billete of rendicionBilleteList; track $index) {
+                            <tr>
+                                <td>{{billete.billete.importe}}</td>
+                                <td><input type="number" name="billeteCantidad" [(ngModel)]="billete.cantidad" (ngModelChange)="actualizarRendicionBillete(billete.billete.order)"></td>
+                                <td>{{billete.total}}</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <div class="row align-items-start">
+                
+                <div class="col">
+                    <h5>Egresos</h5>
+                    <table class="table table-hover" border="2">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tipo Comprobante</th>
+                                <th>Fecha Comprobante</th>
+                                <th>Nro Comprobante</th>
+                                <th>Concepto de pago</th>
+                                <th>Importe</th>
+                                <th>Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="date" name="fechaEgreso" [(ngModel)]="egreso.fecha"></td>
+                                <td>
+                                    <select name="tipoComprobamteEgreso" [(ngModel)]="egreso.tipoComprobante">
+                                        <option value="x">X</option>
+                                        <option value="a">A</option>
+                                        <option value="b">B</option>
+                                        <option value="c">C</option>
+
+                                    </select>
+                                </td>
+                                <td><input type="date" name="fechaComprobanteEgreso" [(ngModel)]="egreso.fechaComprobante"></td>
+                                <td><input name="numeroComprobanteEgreso" [(ngModel)]="egreso.numeroComprobante"></td>
+                                <td><input name="conceptoPagoComprobante" [(ngModel)]="egreso.conceptoPago"></td>
+                                <td><input type="number" name="importeEgreso" [(ngModel)]="egreso.importe"></td>
+                                <td><input type="button"  value="Agregar" (click)="agregarEgreso()" class="btn btn-sm btn-success"></td>
+                            </tr>
+                            @for (egreso of egresoList; track $index) {
+                                <tr>
+                                    <td>{{egreso.fecha}}</td>
+                                    <td>{{egreso.tipoComprobante}}</td>
+                                    <td>{{egreso.fechaComprobante}}</td>
+                                    <td>{{egreso.numeroComprobante}}</td>
+                                    <td>{{egreso.conceptoPago}}</td>
+                                    <td>{{egreso.importe}}</td>
+                                    <td><input type="button" (click)="eliminarEgreso($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="5"></td>
+                                <td>{{totalEgresos}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    Diferencia Rendicion<br>
+                    <h3>{{+otrosIngresos + +rendicion.ventaContado}}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="row align-items-start">
+                
+                <button 
+            type="submit" 
+            class="btn btn-primary my-2">
+            {{-1 > 0 ? 'Actualizar': 'Guardar Rendicion'}}
+        </button>
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</form>
+-->

@@ -1,0 +1,49 @@
+<div class="container text-center">
+    <h3>Egresos</h3><br>
+    <div class="row align-items-start">
+        <div class="col">
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Fecha</th>
+                    <th>Descripcion</th>
+                    <th>Importe</th>
+                    <th>Detalle</th>
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let egreso of egresos; index as i">
+                        <td>{{egreso.fecha}}</td>
+                        <td>{{egreso.descripcion}}</td>
+                        <td>{{egreso.importe}}</td>
+                        <td><button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" (click)="mostrarDetalle(egreso.detalleEgreso)">Detalle</button></td>
+                        
+
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col">
+            
+              <div style="min-height: 120px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                  <div class="card card-body" style="width: 300px;">
+                    <table>
+                        <thead>
+                            <th>Importe</th>
+                            <th>Medio de Pago</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let d of detalle">
+                                <td>{{d.importe}}</td>
+                                <td>{{d.medioDePago.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container text-center">
+    <h3>Productos</h3><br>
+    <div class="row align-items-start">
+        <div class="col">
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Tipo de producto</th>
+                    <th>Tipo de envase</th>
+                    <th>Capacidad</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </thead>
+                <tbody>
+                    @if(productos.length > 0){
+                        @for(producto of productos ; track $index){
+                            <tr>
+                                <td>{{producto.tipoProducto.nombre}}</td>
+                                <td>{{producto.tipoEnvase.nombre}}</td>
+                                <td>{{producto.tipoEnvase.capacidad}}</td>
+                                <td><button class="btn btn-sm btn-success">Editar</button></td>
+                                <td><button class="btn btn-sm btn-danger" (click)="onRemoveProducto(producto.id)">Eliminar</button></td>
+                            </tr>
+                        }
+                    }@else{
+                        <tr>
+                            <td colspan="5">No hay Moviles</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col">
+            <productoForm-component (crearProductoEvent)="crearProducto($event)"></productoForm-component>
+        </div>
+    </div>
+</div>

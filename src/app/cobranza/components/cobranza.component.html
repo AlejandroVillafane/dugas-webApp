@@ -1,0 +1,66 @@
+<form #f="ngForm" (ngSubmit)="f.form.valid && guardarCobranza(f)">
+    <main>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <h3>Cobranzas</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="fechaCobranza">Fecha de Cobranza</label>
+                    <input #fechaCobranza [ngClass]="{'requerido': !cobranza.fecha}" type="date" id="fechaCobranza" name="fechaCobranza" [(ngModel)]="cobranza.fecha">
+                    <label *ngIf="!cobranza.fecha" for="fechaCobranza">Campo Requerido</label>
+                </div>
+                <div class="col">
+                    <conductorForm-component 
+                            [legajoHabilitado]="legajoHabilitado"
+                            [legajoAcomHabilitado]="legajoAcomHabilitado"
+                            [movilHabilitado]="movilHabilitado"
+                            (legajo)="agregarLegajo($event)"
+                            
+                            >
+                    </conductorForm-component>
+                    <modal-mensaje
+                        [popUpModalMensaje]="popUpModalMensaje" 
+                        (response)="closeModalMensaje($event)"
+                        [modalMensaje]="modalMensaje"
+                        >
+                    </modal-mensaje>
+                </div>
+                <div class="col">
+                    <label for="">Cliente</label>
+                    <input type="text" id="cliente" name="cliente" [(ngModel)]="cobranza.cliente">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="">Nro Recibo</label>
+                    <input type="text" id="recibo" name="recibo" [(ngModel)]="cobranza.recibo">
+                </div>
+                <div class="col">
+                    <label for="">Importe</label>
+                    <input type="number" min="0" id="importe" name="importe" [(ngModel)]="cobranza.importe">
+                </div>
+                <div class="col">
+                    <label for="">Observacion</label>
+                    <input type="observacion" id="observacion" name="observacion" [(ngModel)]="cobranza.observacion">
+                </div>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col">
+                    <input type="submit" value="Guardar" class="btn btn-primary" >
+                </div>
+            </div>
+
+        </div>
+
+        
+
+        
+    </main>
+</form>

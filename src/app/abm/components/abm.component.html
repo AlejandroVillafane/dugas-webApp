@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><h3><h3>ABM</h3></h3></a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+
+            <a class="nav-link active" aria-current="page" href="#" (click)="showAbm('legajo')" >LEGAJOS</a> 
+          </li>
+          <li>
+            <a class="nav-link active" aria-current="page" href="#" (click)="showAbm('movil')">MOVILES</a>
+          </li>
+            <li>
+                <a class="nav-link active" aria-current="page" href="#" (click)="showAbm('producto')" >PRODUCTOS</a>
+            </li>
+            <li>
+                <a class="nav-link active" aria-current="page" href="#" (click)="showAbm('banco')">BANCOS</a>
+            </li>
+            <li>
+                <a class="nav-link active" aria-current="page" href="#" (click)="showAbm('tarjeta')">TARJETAS</a>
+            </li>
+            <li>
+                <a class="nav-link active" aria-current="page" href="#" (click)="showAbm('rubro')">TARJETAS</a>
+            </li>
+        </ul>
+        </div>
+        </div>
+</nav>
+@if(abmLegajo){
+    <legajo-component></legajo-component>
+}@else if (abmProducto) {
+    <producto-component></producto-component>
+}@else if (abmMovil) {
+    <movil-component></movil-component>
+}@else if (abmBanco) {
+    <banco-component></banco-component>
+}
+@else if (abmTarjeta) {
+    <tarjeta-component></tarjeta-component>
+}
+@else if (abmRubro) {
+    <rubro-component></rubro-component>
+}
+

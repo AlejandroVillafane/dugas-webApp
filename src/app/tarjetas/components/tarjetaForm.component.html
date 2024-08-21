@@ -1,0 +1,52 @@
+<form (ngSubmit)="onSubmit()">
+    <div>
+        <input 
+            class="form-control my-2" 
+            placeholder="Tarjeta" 
+            name="nombre" 
+            [(ngModel)]="tarjeta.nombre"
+        >
+    </div>
+
+    <div>
+        @if (bancos.length >  0) {
+            <select [(ngModel)]="tarjeta.banco" name="bancoId" class="form-select" aria-label="Default select example">
+                <option value="" disabled selected>Banco</option>
+                @for (banco of bancos; track $index) {
+                    <option [ngValue]="banco" >{{banco.nombre}}</option>
+                }
+                
+    
+            </select>
+        }@else {
+            No hay resultados para bancos
+        }
+        
+    </div>
+
+    <div>
+        <select [(ngModel)]="tarjeta.tipoTarjeta" name="tipoTarjeta" class="form-select" aria-label="Default select example">
+            <option value="" disabled selected>Tipo De Tarjeta</option>
+            
+                <option value="debito" >Debito</option>
+                <option value="credito" >Credito</option>
+            
+            
+
+        </select>
+    </div>
+
+    <div>
+        <button 
+            type="submit" 
+            class="btn btn-primary my-2">
+            {{-1 > 0 ? 'Actualizar': 'Guardar'}}
+        </button>
+        <button 
+            type="button" 
+            class="btn btn-success my-2 mx-2" >
+            Limpiar
+        </button>
+    </div>
+
+</form>

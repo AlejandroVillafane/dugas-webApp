@@ -1,0 +1,92 @@
+<form #f="ngForm" (ngSubmit)="f.form.valid && guardarEgreso(f)" >
+    <main>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <h2>Planilla de rendicion</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <label for="fechaEgreso">Fecha de Rendicion</label>
+                    <input #fechaRendicionInput [ngClass]="{'requerido': !egreso.fecha}" type="date" id="fechaEgreso" name="fechaEgreso" [(ngModel)]="egreso.fecha">
+                    <label *ngIf="!egreso.fecha" for="fechaEgreso">Campo Requerido</label>
+                </div>
+                <div class="col">
+                    <label for="descripcionEgreso">Descripcion</label>
+                    <input type="text" id="descripcionEgreso" name="descripcionEgreso" placeholder="Descripcion" [(ngModel)]="egreso.descripcion">
+                </div>
+                <div class="col">
+                    <label for="importeEgreso">Importe</label>
+                    <input type="number" min="0" id="importeEgreso" name="importeEgreso" placeholder="Importe" [(ngModel)]="egreso.importe" (ngModelChange)="calcularDiferencias()">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <label for="medioPagoEgreso">Medio de pago</label>
+                   <select id="medioPagoEgreso" name="medioPagoEgreso" [(ngModel)]="medioDePago">
+                        <option selected disabled>Elija un medio de pago</option>
+                        <option *ngFor="let mp of mediosDepagoList" [ngValue]="mp">{{mp.nombre}}</option>
+                    </select>
+                </div>
+                
+                <div class="col">
+                    <label for="importeMedioPago">Importe</label>
+                    <input type="number" min="0" name="importeMedioPago" id="importeMedioPago" placeholder="Importe" [(ngModel)]="importeMedioPago">
+                </div>
+               
+                <div class="col">
+                    <input type="button" value="Agregar" (click)="agregarDetalle()" class="btn btn-sm btn-success" >
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover">
+                        <thead>
+                            <th>Medio de Pago</th>
+                            <th>Importe</th>
+                        </thead>
+                        <tbody>
+                            @if (egreso.detalleEgreso.length>0) {
+                                <tr *ngFor="let detalle of egreso.detalleEgreso;index as i">
+                                    <td>{{detalle.medioDePago.nombre}}</td>
+                                    <td>{{detalle.importe}}</td>
+                                    <td><input type="button" (click)="eliminarDetalle(i)" value="Eliminar" class="btn btn-sm btn-danger"></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col align-self-center">
+                    <h3 *ngIf="diferencias>0">Faltan detalles de pago</h3>
+                    <h3 *ngIf="diferencias<0">Sobran detalles de pago</h3>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col align-self-center">
+                    <div *ngIf="diferencias==0;else guardarDesabilitado">
+                        <button  type="submit" class="btn btn-primary" >Guardar</button>
+                    </div>
+                    <ng-template #guardarDesabilitado>
+                        <button type="submit" disabled class="btn btn-secondary" >Guardar</button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+</form>

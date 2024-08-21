@@ -1,0 +1,33 @@
+<div class="container text-center">
+    <h3>Bancos</h3><br>
+    <div class="row align-items-start">
+        <div class="col">
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </thead>
+                <tbody>
+                    @if(bancos.length > 0){
+                        @for(banco of bancos ; track $index){
+                            <tr>
+                                <td>{{banco.nombre}}</td>
+                                <td><button class="btn btn-sm btn-success">Editar</button></td>
+                                <td><button (click)="eliminarBanco(banco.id)" class="btn btn-sm btn-danger">Eliminar</button></td>
+                            </tr>
+                        }
+                    }@else{
+                        <tr>
+                            <td colspan="5">No hay Bancos</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col">
+            <bancoForm-component (crearBancoEvent)="crearBanco($event)"></bancoForm-component>
+        </div>
+    </div>
+</div>

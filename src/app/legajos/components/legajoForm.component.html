@@ -1,0 +1,73 @@
+<form (ngSubmit)="onSubmit()" #legajoForm="ngForm">
+
+    <div>
+        <input  
+        class="form-control my-2" 
+        placeholder="apellido" 
+        name="apellido" 
+        [(ngModel)]="legajo.apellido"
+        #name="ngModel"
+        required
+        minlength="5"
+        >
+        
+    </div>
+    <div>
+        <input  
+        class="form-control my-2" 
+        placeholder="nombre" 
+        name="nombre" 
+        [(ngModel)]="legajo.nombre"
+        #description="ngModel"
+        required
+        >
+       
+    </div>
+    <div>
+        <input type="number" 
+        class="form-control my-2" 
+        placeholder="cuil" 
+        name="cuil" 
+        [(ngModel)]="legajo.cuil"
+        #price="ngModel"
+        required min="5"
+        >
+        
+    </div>
+    <div>
+        <input type="number" 
+        class="form-control my-2" 
+        placeholder="dni" 
+        name="dni" 
+        [(ngModel)]="legajo.dni"
+        #price="ngModel"
+        required min="5"
+        >
+        
+    </div>
+    <div>
+        <input type="number" 
+        class="form-control my-2" 
+        placeholder="Numero de Legajo" 
+        name="numeroLegajo" 
+        [(ngModel)]="legajo.numeroLegajo"
+        #price="ngModel"
+        required min="5"
+        >
+        
+    </div>
+    <div>
+        <button 
+        type="submit" 
+        class="btn btn-primary my-2">
+        {{legajo.id > 0 ? 'Actualizar': 'Guardar'}}
+        </button>
+        <button 
+        type="button" 
+        class="btn btn-success my-2 mx-2" 
+        (click)="clean()">
+        Limpiar
+    </button>
+    </div>
+
+</form>

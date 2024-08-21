@@ -1,0 +1,383 @@
+<div class="container">
+<div class="row row-cols-4">
+  <div class="col">
+    <label for="fechaRendicion">Fecha: </label>
+    <input disabled type="text" id="fechaRendicion" value="{{data.fechaRendicion}}">
+  </div>
+  <div class="col">
+    <label for="legajoRendicion">Legajo: </label>
+    <input disabled type="text" id="legajoRendicion" value="{{data.legajo.numeroLegajo}}">
+  </div>
+  <div class="col">
+    <label for="legajoAcomRendicion">Legajo Acompañante: </label>
+    <input disabled *ngIf="data.legajoAcom !=null" type="text" id="legajoAcomRendicion" value="{{data.legajoAcom.numeroLegajo}}">
+  </div>
+  <div class="col">
+    <label for="movilRendicion">Movil: </label>
+    <input disabled type="text" id="movilRendicion" value="{{data.movil.dominio}}">
+  </div>
+</div>
+
+<hr>
+<div class="row row-cols-3">
+  <div class="col">
+    <label for="ventaContado">Venta Contado</label>
+    <input disabled type="text" id="ventaEnPesos" value="{{data.ventaContado}}">
+  </div>
+  <div class="col">
+    <label for="ventaCuentaCorriente">Venta Cuenta Corriente</label>
+    <input disabled type="text" id="ventaCuentaCorriente" value="{{data.ventaCuentaCorriente}}">
+  </div>
+  <div class="col">
+    <label for="ventaTotal">Venta Contado</label>
+    <input disabled type="text" id="ventaTotal" value="{{data.ventaContado+data.ventaCuentaCorriente}}">
+  </div>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Productos</h3></div>
+</div>
+<div class="row row-cols-1">
+  <div class="col">
+    <table class="table">
+      <thead>
+        <th>Producto</th>
+        <th>Cantidad</th>
+      </thead>
+      <tbody>
+        @for(producto of data.productos; track $index){
+          <tr>
+            <td>{{producto.producto.tipoEnvase.nombre+" "+producto.producto.tipoProducto.nombre+" "+producto.producto.tipoEnvase.capacidad+" kg."}}</td>
+            <td>{{producto.cantidad}}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<hr>
+<div class="row row-cols-3 text-center">
+  <div class="col">
+    <h4>Total venta contado: {{data.ventaContado}}</h4>
+  </div>
+  <div class="col">
+    <h4>Total venta Cuenta corriente: {{data.ventaCuentaCorriente}}</h4>
+  </div>
+  <div class="col">
+    <h4>Total : {{data.ventaContado + data.ventaCuentaCorriente}}</h4>
+  </div>
+</div>
+
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Ingresos a Cuenta Emitidos</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Concepto</th>
+      <th>Observacion</th>
+      <th>importe</th>
+    </thead>
+    <tbody>
+      @for(ingreso of data.ingresoACuentaEmisor;track $index){
+        <tr>
+          <td>{{ingreso.cliente}}</td>
+          <td>{{ingreso.concepto.nombre}}</td>
+          <td>{{ingreso.observacion}}</td>
+          <td>{{ingreso.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center" >
+  <div class="col"><h3>Ingresos a Cuenta Imputados</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Concepto</th>
+      <th>Observacion</th>
+      <th>importe</th>
+    </thead>
+    <tbody>
+      @for(ingreso of data.ingresoACuentaDestino;track $index){
+        <tr>
+          <td>{{ingreso.cliente}}</td>
+          <td>{{ingreso.concepto.nombre}}</td>
+          <td>{{ingreso.observacion}}</td>
+          <td>{{ingreso.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Otros Ingresos</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Concepto</th>
+      <th>Observacion</th>
+      <th>importe</th>
+    </thead>
+    <tbody>
+      @for(ingreso of data.otrosIngresos;track $index){
+        <tr>
+          <td>{{ingreso.cliente}}</td>
+          <td>{{ingreso.concepto.nombre}}</td>
+          <td>{{ingreso.observacion}}</td>
+          <td>{{ingreso.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col">
+    <h2>Rendicion</h2>
+  </div>
+</div>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Transferencias</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Banco</th>
+      <th>Importe</th>
+      
+    </thead>
+    <tbody>
+      @for(transferencia of data.transferencias;track $index){
+        <tr>
+          <td>{{transferencia.cliente}}</td>
+          <td>{{transferencia.banco.nombre}}</td>
+          
+          <td>{{transferencia.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Cuenta DNI</h3></div>
+</div>
+<div class="row row-cols-1 text-center">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Observacion</th>
+      <th>Importe</th>
+      
+    </thead>
+    <tbody>
+      @for(dni of data.cuentaDNI;track $index){
+        <tr>
+          <td>{{dni.cliente}}</td>
+          <td>{{dni.observacion}}</td>
+          
+          <td>{{dni.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Mercado Pago</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Observacion</th>
+      <th>Importe</th>
+      
+    </thead>
+    <tbody>
+      @for(mp of data.mercadoPago;track $index){
+        <tr>
+          <td>{{mp.cliente}}</td>
+          <td>{{mp.observacion}}</td>
+          
+          <td>{{mp.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Tarjeta</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Tarjeta</th>
+      <th>Importe</th>
+      
+    </thead>
+    <tbody>
+      @for(tarjetaCreditoDebito of data.tarjetaCreditoDebito;track $index){
+        <tr>
+          <td>{{tarjetaCreditoDebito.cliente}}</td>
+          <td>{{tarjetaCreditoDebito.tarjeta.nombre+" "+tarjetaCreditoDebito.tarjeta.banco.nombre}}</td>
+          
+          <td>{{tarjetaCreditoDebito.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Otros</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Observacion</th>
+      <th>Importe</th>
+      
+    </thead>
+    <tbody>
+      @for(otros of data.otros;track $index){
+        <tr>
+          <td>{{otros.cliente}}</td>
+          <td>{{otros.observacion}}</td>
+          
+          <td>{{otros.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>App YPF</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Observacion</th>
+      <th>Importe</th>
+      
+    </thead>
+    <tbody>
+      @for(appYpf of data.appYpf;track $index){
+        <tr>
+          <td>{{appYpf.cliente}}</td>
+          <td>{{appYpf.observacion}}</td>
+          
+          <td>{{appYpf.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Cheques</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Nro Cheque</th>
+      <th>Fecha</th>
+      <th>Banco</th>
+      <th>Importe</th>
+      
+    </thead>
+    <tbody>
+      @for(cheque of data.cheques;track $index){
+        <tr>
+          <td>{{cheque.cliente}}</td>
+          <td>{{cheque.numeroCheque}}</td>
+          <td>{{cheque.fecha}}</td>
+          <td>{{cheque.banco.nombre}}</td>
+          
+          <td>{{cheque.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-1 text-center">
+  <div class="col"><h3>Egresos</h3></div>
+</div>
+<div class="row row-cols-1">
+  <table>
+    <thead>
+      <th>Cliente</th>
+      <th>Nro Cheque</th>
+      <th>Fecha</th>
+      <th>Banco</th>
+      <th>Importe</th>
+      
+    </thead>
+    <tbody>
+      @for(egreso of data.egresos;track $index){
+        <tr>
+          <td>{{egreso.tipoComprobante}}</td>
+          <td>{{egreso.numeroComprobante}}</td>
+          <td>{{egreso.conceptoPago.nombre}}</td>
+          <td>{{egreso.observacion}}</td>
+          
+          <td>{{egreso.importe}}</td>
+        </tr>
+      } 
+    </tbody>
+  </table>
+</div>
+<hr>
+<div class="row row-cols-2 text-center">
+  <div class="col">
+    <label for="totalEfectivo">Total Efectivo</label>
+    <input disabled type="text" id="totalEfectivo" value="{{data.totalEfectivo}}">
+  </div>
+  <div class="col">
+    <label for="totalNoEfectivo">Total No Efectivo</label>
+    <input disabled type="text" id="totalNoEfectivo" value="{{data.totalNoEfectivo}}">
+  </div>
+</div>
+<hr>
+<div class="row row-cols-3">
+  <div class="col"></div>
+  <div class="col">
+       <table class="table table-hover" border="2">
+  <thead>
+      <th>Billete</th>
+      <th>Cantidad</th>
+      <th>Total</th>
+  </thead>
+  <tbody>
+      @for (rendicion of data.rendicionBilletes; track $index) {
+          <tr>
+              <td>{{rendicion.billete.importe | currencyFormat}}</td>
+              <td>{{rendicion.cantidad}}</td>
+              <td>{{rendicion.billete.importe *  rendicion.cantidad| currencyFormat}}</td>
+          </tr>
+      }
+  </tbody>
+</table>
+  </div>
+  <div class="col"></div>
+</div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container text-center">
+    <h3>Tarjetas</h3><br>
+    <div class="row align-items-start">
+        <div class="col">
+            <table class="table table-hover" border="2">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Banco</th>
+                    <th>Tipo</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </thead>
+                <tbody>
+                    @if(tarjetas.length > 0){
+                        @for(tarjeta of tarjetas ; track $index){
+                            <tr>
+                                <td>{{tarjeta.nombre}}</td>
+                                <td>{{tarjeta.banco.nombre}}</td>
+                                <td>{{tarjeta.tipoTarjeta}}</td>
+                                <td><button class="btn btn-sm btn-success">Editar</button></td>
+                                <td><button (click)="eliminarTarjeta(tarjeta.id)" class="btn btn-sm btn-danger">Eliminar</button></td>
+                            </tr>
+                        }
+                    }@else{
+                        <tr>
+                            <td colspan="5">No hay Tarjetas</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col">
+            <tarjetaForm-component (crearTarjetaEvent)="crearTarjeta($event)"></tarjetaForm-component>
+        </div>
+    </div>
+</div>

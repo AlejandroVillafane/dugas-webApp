@@ -1,0 +1,22 @@
+<form #f="ngForm">
+    <main>
+        <div class="row">
+            <div class="col">
+                <h2>{{titulo}}</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                @if (isEdicion) {
+                    <input #fechaRendicionInput [ngClass]="{'requerido': !rendicion.fechaRendicion}" type="date" id="fechaRendicion" name="fechaRendicion" [(ngModel)]="rendicion.fechaRendicion">
+                }@else{
+                    <input #fechaRendicionInput [ngClass]="{'requerido': !rendicion.fechaRendicion}" type="date" id="fechaRendicion" name="fechaRendicion" [(ngModel)]="rendicion.fechaRendicion">
+                }
+            </div>
+        </div>
+
+        
+
+    </main>
+</form>

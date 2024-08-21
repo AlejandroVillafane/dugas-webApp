@@ -1,0 +1,44 @@
+<form (ngSubmit)="onSubmit()">
+
+    <div>
+        <input 
+            class="form-control my-2" 
+            placeholder="Modelo" 
+            name="modelo" 
+            [(ngModel)]="movil.modelo"
+        >
+        
+    </div>
+    <div>
+        <input 
+            class="form-control my-2"  
+            placeholder="Dominio"
+            name="dominio" 
+            [(ngModel)]="movil.dominio"
+        >
+       
+    </div>
+    <div>
+        <input 
+            class="form-control my-2" 
+            placeholder="Interno"
+            name="numeroInterno" 
+            [(ngModel)]="movil.numeroInterno"
+        >
+        
+    </div>
+    
+    <div>
+        <button 
+            type="submit" 
+            class="btn btn-primary my-2">
+            {{-1 > 0 ? 'Actualizar': 'Guardar'}}
+        </button>
+        <button 
+            type="button" 
+            class="btn btn-success my-2 mx-2" >
+            Limpiar
+        </button>
+    </div>
+
+</form>

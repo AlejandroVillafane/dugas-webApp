@@ -1,0 +1,7 @@
+<div class="modal" *ngIf="popUp">
+    <div class="modal-content">
+      <p>{{mensaje}}</p>
+      <button (click)="handleResponse(true)">Sí</button>
+      <button (click)="handleResponse(false)">No</button>
+    </div>
+  </div>
