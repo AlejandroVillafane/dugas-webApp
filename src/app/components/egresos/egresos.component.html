@@ -1,0 +1,63 @@
+<form #f="ngForm" ></form>
+<div class="container text-center">
+    <div class="row row-cols-1">
+      <div class="col"> <h3>Egresos</h3></div>
+    </div>
+</div>
+
+<table class="table table-hover" border="2">
+    <thead>
+        <tr>
+            <th>Tipo Comprobante</th>
+            <th>Nro Comprobante</th>
+            <th>Proveedor</th>
+            <th>Concepto de pago</th>
+            <th>Rubro</th>
+            <th>Observacion</th>
+            <th>Importe</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <select class="form-select" #egresosInput name="tipoComprobamteEgreso" [(ngModel)]="egreso.tipoComprobante">
+                    <option value="x">X</option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                </select>
+            </td>
+            <td><input name="numeroComprobanteEgreso" [(ngModel)]="egreso.numeroComprobante"></td>
+            <td><input name="proveedorEgreso" [(ngModel)]="egreso.proveedor"></td>
+            <td>
+                <select class="form-select" name="egresoConcepto" [(ngModel)]="egreso.conceptoPago">
+                    @for (concepto of conceptoList; track $index) {
+                        <option *ngIf="concepto.egreso" [ngValue]="concepto">{{concepto.nombre}}</option>
+                    }
+                </select>
+            </td>
+            <td *ngIf="egreso.conceptoPago != null;else elseTag">{{egreso.conceptoPago.rubro.nombre}}</td>
+            <ng-template #elseTag > - </ng-template>
+            <td><input type="text" placeholder="Observacion" name="EgresoObservacion" [(ngModel)]="egreso.observacion"></td>
+            <td><input type="number" name="importeEgreso" [(ngModel)]="egreso.importe"></td>
+            <td><input type="button" value="Agregar" (click)="agregarEgreso()" class="btn btn-sm btn-success"></td>
+        </tr>
+        @for (egreso of egresoList; track $index) {
+            <tr>
+                <td>{{egreso.tipoComprobante}}</td>
+                <td>{{egreso.numeroComprobante}}</td>
+                <td>{{egreso.proveedor}}</td>
+                <td>{{egreso.conceptoPago.nombre}}</td>
+                <td>{{egreso.conceptoPago.rubro.nombre}}</td>
+                <td>{{egreso.observacion}}</td>
+                <td>{{egreso.importe | currencyFormat}}</td>
+                <td><input type="button" (click)="eliminarEgreso($index)" class="btn btn-sm btn-danger" value="Eliminar"></td>
+            </tr>
+        }
+        <tr>
+            <td colspan="6"></td>
+            <td>{{totalEgresos  | currencyFormat}}</td>
+        </tr>
+    </tbody>
+</table>

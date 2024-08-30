@@ -1,6 +1,6 @@
 import { MedioDePago } from "../../medioDePago/models/medioDePago";
 
-export class Egreso{
+export class EgresoModel{
     id!:number;
     fecha!:string;
     descripcion!:string;

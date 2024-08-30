@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EgresoService } from '../../services/egreso.service';
-import { Egreso } from '../../models/egreso';
+import { EgresoModel } from '../../models/egreso';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ export class EgresoListComponent implements OnInit {
 
   constructor(private egresoService:EgresoService){}
 
-  egresos : Egreso[] = [];
+  egresos : EgresoModel[] = [];
   detalle : any;
   ngOnInit(): void {
     this.egresoService.listarEgresos().subscribe(response=>{

@@ -7,20 +7,24 @@ import { Legajo } from '../../legajos/models/legajo';
 import { ModalMensajeComponent } from '../../rendicion/components/modalMensaje.component';
 import { Router } from '@angular/router';
 import { CobranzaService } from '../services/cobranza.service';
+import { IngresoFormComponent } from '../../components/ingresos/ingreso-form/ingreso-form.component';
+import { ConceptoService } from '../../conceptos/services/concepto.service';
+import { Concepto } from '../../conceptos/models/concepto';
 
 @Component({
   selector: 'app-cobranza',
   standalone: true,
-  imports: [FormsModule,CommonModule,ConductorFormComponent,ModalMensajeComponent],
+  imports: [FormsModule,CommonModule,ConductorFormComponent,ModalMensajeComponent,IngresoFormComponent],
   templateUrl: './cobranza.component.html',
   styleUrl: './cobranza.component.css'
 })
 export class CobranzaComponent implements OnInit {
   
-  constructor(private router : Router, private cobranzaService:CobranzaService){}
+  constructor(private router : Router, private cobranzaService:CobranzaService,private conceptoService : ConceptoService){}
 
   
-
+  titulo:string = "Cobranza"
+  conceptoList : Concepto[] = [];
   legajoHabilitado:boolean=true
   legajoAcomHabilitado:boolean=false
   movilHabilitado:boolean=false
@@ -31,7 +35,9 @@ export class CobranzaComponent implements OnInit {
 
   cobranza:Cobranza = new Cobranza();
   ngOnInit(): void {
-    
+    this.conceptoService.listarConceptos().subscribe(response=>{
+      this.conceptoList = response;
+    })
   }
 
   closeModalMensaje(value:boolean){

@@ -3,7 +3,7 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col">
-                    <h2>Planilla de rendicion</h2>
+                    <h2>Planilla de Egresos</h2>
                 </div>
             </div>
         </div>
@@ -11,7 +11,7 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col">
-                    <label for="fechaEgreso">Fecha de Rendicion</label>
+                    <label for="fechaEgreso">Fecha de Egreso</label>
                     <input #fechaRendicionInput [ngClass]="{'requerido': !egreso.fecha}" type="date" id="fechaEgreso" name="fechaEgreso" [(ngModel)]="egreso.fecha">
                     <label *ngIf="!egreso.fecha" for="fechaEgreso">Campo Requerido</label>
                 </div>
@@ -29,6 +29,13 @@
         <br>
         <div class="container text-center">
             <div class="row">
+                <app-egresoForm
+                    [mediosDepagoList]="mediosDepagoList"
+                    [conceptoList]="conceptoList"
+                    (egresoAgregado)="agregarEgreso($event)"
+                    (egresoEliminado)="eliminarEgreso($event)">
+                </app-egresoForm>
+                <!--
                 <div class="col">
                     <label for="medioPagoEgreso">Medio de pago</label>
                    <select id="medioPagoEgreso" name="medioPagoEgreso" [(ngModel)]="medioDePago">
@@ -45,7 +52,9 @@
                 <div class="col">
                     <input type="button" value="Agregar" (click)="agregarDetalle()" class="btn btn-sm btn-success" >
                 </div>
+                -->
             </div>
+            <!--
             <hr>
             <div class="row">
                 <div class="col">
@@ -66,13 +75,24 @@
                     </table>
                 </div>
             </div>
+            -->
         </div>
-
+        <div *ngIf="spinnerLoading" class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <modal-mensaje
+            [popUpModalMensaje]="popUpModalMensaje" 
+            (response)="closeModalMensaje($event)"
+            [modalMensaje]="modalMensaje"
+            >
+        </modal-mensaje>
         <div class="container text-center">
             <div class="row">
                 <div class="col align-self-center">
-                    <h3 *ngIf="diferencias>0">Faltan detalles de pago</h3>
-                    <h3 *ngIf="diferencias<0">Sobran detalles de pago</h3>
+                    <h3 *ngIf="diferencias>0">Faltan ${{diferencias}}, debe agregar detalles de pago</h3>
+                    <h3 *ngIf="diferencias<0">Sobran ${{diferencias}}, debe eliminar detalles de pago</h3>
                 </div>
             </div>
             
@@ -87,6 +107,7 @@
                 </div>
             </div>
         </div>
+        
         
     </main>
 </form>

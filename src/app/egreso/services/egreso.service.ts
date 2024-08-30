@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
-import { Egreso } from "../models/egreso";
+import { EgresoModel } from "../models/egreso";
 import { format } from "date-fns";
 
 @Injectable({
@@ -10,11 +10,11 @@ import { format } from "date-fns";
 export class EgresoService{
     constructor(private http: HttpClient){}
 
-    guardarEgreso(egreso:Egreso):Observable<string>{
+    guardarEgreso(egreso:EgresoModel):Observable<string>{
         return this.http.post<string>('http://localhost:8080/dugas/guardarEgreso',egreso);
     }
 
-    listarEgresos():Observable<Egreso[]>{
+    listarEgresos():Observable<EgresoModel[]>{
         return this.http.get<any[]>("http://localhost:8080/dugas/listarEgresos").pipe(
             map(response=>{
                 return response.map(egresoDTO=>{

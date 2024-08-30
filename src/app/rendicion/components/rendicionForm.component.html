@@ -48,16 +48,24 @@
             [modalMensaje]="modalMensaje"
             >
         </modal-mensaje>
-
+<!--
         <div class="container text-center">
             <div class="row row-cols-1  text-center">
               <div class="col"><h3>Venta de unidades Fisicas</h3></div>
             </div>
         </div>
+-->
         <div class="container text-center">
             <div class="row row-cols-3">
                 <div class="col"></div>
                 <div class="col">
+                <app-producto-form
+                    [totalKgProducto]="totalKgProducto"
+                    [totalCantidadesProducto]="totalCantidadesProducto"
+                    (actualizarValoresProducto)="actualizarValores($event)">
+                </app-producto-form>
+                <!--
+                
                     <table style="width: 100%;">
                         <thead>
                             <th style="width: 25%;">Producto</th>
@@ -73,7 +81,7 @@
                                     <td><input type="number" min="0" name="cantidadProducto" [(ngModel)]="productos.cantidad" (ngModelChange)="actualizarvalores(productos,groupedProductos)"/></td>
                                     <td>@if(productos.cantidad){ {{productos.cantidad * productos.tipoEnvase.capacidad}} }@else{ 0 }</td>
                                     <td *ngIf="i==0" [rowSpan]="(i==0)?2:1">{{grupo.cantidad}} Kg     {{productos.tipoProducto.nombre}} </td>
-                                    <!--<td *ngIf="i==0"></td>-->
+                                    
                                 </tr>
                             }
                             <tr>
@@ -85,6 +93,7 @@
                             
                         </tbody>
                     </table>
+                -->
                 </div>
                 <div class="col"></div>
             </div>
@@ -125,6 +134,11 @@
 
         <hr>
 
+        <app-ingreso-form
+            [conceptoList]="conceptoList"
+            (enviarIngresoActualizado)="actualizarIngreso($event)">
+        </app-ingreso-form>
+    <!--
         <div class="container text-center">
             <div class="row row-cols-1">
               <div class="col"><h3>Otros Ingresos</h3></div>
@@ -175,7 +189,7 @@
                 </tr>
             </tbody>
         </table>
-
+    -->
         <hr>
 
         <div class="container text-center">
@@ -567,6 +581,13 @@
             </tbody>
         </table>
 
+        <app-egresoForm 
+            [conceptoList]="conceptoList"
+            [egresoList]="egresoList"
+            (egresoAgregado)="agregarEgreso($event)"
+            (egresoEliminado)="eliminarEgreso($event)">
+        </app-egresoForm>
+<!--
         <div class="container text-center">
             <div class="row row-cols-1">
               <div class="col"> <h3>Egresos</h3></div>
@@ -629,7 +650,7 @@
                 </tr>
             </tbody>
         </table>
-
+-->
         <table class="table table-hover" border="2">
             <tbody>
                 <tr>

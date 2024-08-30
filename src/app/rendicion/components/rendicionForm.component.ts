@@ -41,22 +41,32 @@ import { ModalMensajeComponent } from "./modalMensaje.component";
 import { Router } from "@angular/router";
 import { IngresoACuenta } from "../models/ingresoACuenta";
 import { BilleteService } from "../../billetes/services/billete.service";
+import { EgresoComponent } from "../../egreso/components/egreso.component";
+import { EgresoFormComponent } from "../../components/egresos/egresoForm.component";
+import { ProductoComponent } from "../../productos/components/producto.component";
+import { ProductoFormComponent } from "../../components/productos/producto-form/producto-form.component";
+import { ProductoForm } from "../../productos/components/productoForm.component";
+import { IngresoFormComponent } from "../../components/ingresos/ingreso-form/ingreso-form.component";
 
 @Component({
     selector:'rendicionForm-component',
     standalone:true,
     templateUrl:'rendicionForm.component.html',
-    imports:[
-        FormsModule,
-        CurrencyFormat,
-        CommonModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        ModalComponent,
-        ConductorFormComponent,
-        ModalMensajeComponent
-    ],
+    imports: [
+    FormsModule,
+    CurrencyFormat,
+    CommonModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    ModalComponent,
+    ConductorFormComponent,
+    ModalMensajeComponent,
+    EgresoFormComponent,
+    ProductoFormComponent,
+    ProductoForm,
+    IngresoFormComponent
+],
     styleUrl:"rendicionForm.component.css"
 })
 export class RendicionFormComponent implements OnInit{
@@ -66,7 +76,7 @@ export class RendicionFormComponent implements OnInit{
     movilHabilitado:boolean=true
 
     flagDiferenciasEfectivo:number = 0;
-    productos : Producto[] = [];
+    //productos : Producto[] = [];
     rendicion : Rendicion = new Rendicion();
 
     //rendicionBillete : Billete = {id:1,order:1,importe:10}
@@ -76,10 +86,10 @@ export class RendicionFormComponent implements OnInit{
     fechaRendicion:Date = new Date();
     diferenciaRendicion:number = 0;
 
-    otroIngreso : OtroIngreso = new OtroIngreso();
+    //otroIngreso : OtroIngreso = new OtroIngreso();
     otroIngresoList : OtroIngreso[] = [];
 
-    otrosIngresos : number = 0;
+    totalIngreso : number = 0;
     ingresosACuentaEmisor : number = 0;
 
     rendicionConTransferencia : RendicionConTransferencia = new RendicionConTransferencia();
@@ -103,7 +113,7 @@ export class RendicionFormComponent implements OnInit{
     rendicionYPF : RendicionYPF = new RendicionYPF();
     rendicionYPFList : RendicionYPF[] = []
 
-    egreso : Egreso = new Egreso();
+ //   egreso : Egreso = new Egreso();
     egresoList : Egreso[] = []
 
     totalEgresos : number = 0;
@@ -134,7 +144,7 @@ export class RendicionFormComponent implements OnInit{
     modalMensaje:string = "Mensaje por defecto";
     respuestaModalMensaje: boolean = false;
 
-    groupedProductos: any[] = [];
+    //groupedProductos: any[] = [];
 
     rendicionProductos : RendicionProducto[] = [];
     totalCantidadesProducto:number = 0;
@@ -143,7 +153,7 @@ export class RendicionFormComponent implements OnInit{
     @ViewChild(ConductorFormComponent) conductorFormComponent!: ConductorFormComponent;
     @ViewChild('fechaRendicionInput') fechaRendicionInput!: ElementRef;  
     @ViewChild('egresosInput') egresosInput!: ElementRef;  
-    @ViewChild('otrosIngresosInput') otrosIngresosInput!: ElementRef;  
+    //@ViewChild('otrosIngresosInput') otrosIngresosInput!: ElementRef;  
     @ViewChild('clienteTRansferencia') clienteTRansferencia!: ElementRef;
     @ViewChild('cuentaDniCliente') cuentaDniCliente!: ElementRef;
     @ViewChild('mercadoPagoCliente') mercadoPagoCliente!: ElementRef;
@@ -166,12 +176,12 @@ export class RendicionFormComponent implements OnInit{
 
     ngOnInit(): void {
         
-
+        /*
         this.productoService.listarProductos().subscribe(productos=>{
             this.productos = productos;
             this.groupProductosByTipoProducto();
         });
-        
+        */
         this.bancoService.listarBancos().subscribe(bancos=>this.bancos = bancos);
 
         this.tarjetaService.listarTarjetas().subscribe(tarjetas=>this.tarjetas = tarjetas);
@@ -196,7 +206,7 @@ export class RendicionFormComponent implements OnInit{
             });
         });
     }
-
+    /*
     groupProductosByTipoProducto() {
         const grouped = this.productos.reduce((acc, producto) => {
             const tipoProductoId = producto.tipoProducto.id;
@@ -213,7 +223,7 @@ export class RendicionFormComponent implements OnInit{
 
         this.groupedProductos = Object.values(grouped);
     }
-
+*/
     agregarLegajo(legajo:Legajo){
         this.rendicion.legajo = legajo;
     }
@@ -228,11 +238,11 @@ export class RendicionFormComponent implements OnInit{
 
     focusInput(value:string): void {
         console.log(value)
-        if(value == "otrosIngresosInput"){
+        /*if(value == "otrosIngresosInput"){
             console.log(1)
 
             this.otrosIngresosInput.nativeElement.focus();  // Método para hacer foco en el input
-        }else if(value == "egresosInput"){
+        }else */if(value == "egresosInput"){
             console.log(2)
             this.egresosInput.nativeElement.focus();  // Método para hacer foco en el input
 
@@ -286,7 +296,35 @@ export class RendicionFormComponent implements OnInit{
         }
         this.popUp = false; // Close the modal
     }
-    
+
+    actualizarValores(datos:any):void{
+        const productoRendicion = datos.productoRendicion;
+        const groupedProductos = datos.groupedProductos;
+        this.rendicionProductos = [];
+        for(var c = 0;c<groupedProductos.length;c++){
+            groupedProductos[c].cantidad = 0;
+            for(var c2=0;c2<groupedProductos[c].productos.length;c2++){
+                this.rendicionProductos.push({
+                    cantidad:(groupedProductos[c].productos[c2].cantidad == undefined ? 0 : groupedProductos[c].productos[c2].cantidad),
+                    producto : {
+                        id:groupedProductos[c].productos[c2].id,
+                        tipoEnvase:groupedProductos[c].productos[c2].tipoEnvase,
+                        tipoProducto:groupedProductos[c].productos[c2].tipoProducto
+                    }
+                })
+                if(groupedProductos[c].productos[c2].cantidad != undefined){
+                    groupedProductos[c].cantidad += groupedProductos[c].productos[c2].cantidad * groupedProductos[c].productos[c2].tipoEnvase.capacidad
+                }
+            }
+        }
+        this.totalCantidadesProducto = 0;
+        this.totalKgProducto=0;
+        this.rendicionProductos.forEach(rendicion=>{
+            this.totalCantidadesProducto +=rendicion.cantidad;
+            this.totalKgProducto += (rendicion.cantidad*rendicion.producto.tipoEnvase.capacidad);
+        })
+    }
+    /*
     actualizarvalores(productoRendicion: any, groupedProductos:any):void{
         
         this.rendicionProductos = [];
@@ -313,7 +351,7 @@ export class RendicionFormComponent implements OnInit{
             this.totalKgProducto += (rendicion.cantidad*rendicion.producto.tipoEnvase.capacidad);
         })
     }
-
+    */
     actualizarRendicionBillete(order:number):void{
         
        
@@ -340,7 +378,7 @@ export class RendicionFormComponent implements OnInit{
     }
 
     calcularDiferenciaRendicion(){
-        this.rendicion.totalEfectivo = this.rendicion.ventaContado - this.rendicion.totalNoEfectivo + this.otrosIngresos + this.ingresosACuentaEmisor - this.totalEgresos - this.ingresoACuentaDestinoTotal;
+        this.rendicion.totalEfectivo = this.rendicion.ventaContado - this.rendicion.totalNoEfectivo + this.totalIngreso + this.ingresosACuentaEmisor - this.totalEgresos - this.ingresoACuentaDestinoTotal;
         var totalImporteBilletes = 0;
         this.rendicionBilleteList.forEach(
             billete => {
@@ -352,7 +390,7 @@ export class RendicionFormComponent implements OnInit{
     }
     
     actualizarTotalEfectivo():void{
-        this.rendicion.totalEfectivo = this.rendicion.ventaContado - this.rendicion.totalNoEfectivo + this.otrosIngresos + this.ingresosACuentaEmisor - this.totalEgresos - this.ingresoACuentaDestinoTotal;
+        this.rendicion.totalEfectivo = this.rendicion.ventaContado - this.rendicion.totalNoEfectivo + this.totalIngreso + this.ingresosACuentaEmisor - this.totalEgresos - this.ingresoACuentaDestinoTotal;
         
         if(this.rendicion.totalEfectivo < 0){
             this.flagDiferenciasEfectivo = 1;
@@ -482,6 +520,18 @@ export class RendicionFormComponent implements OnInit{
         this.chequeCliente.nativeElement.focus();
     }
 
+    agregarEgreso(egresoList:Egreso[]):void{
+        this.egresoList = egresoList;
+        this.calcularTotalOperacion("egresos")
+        this.actualizarTotalEfectivo();
+    }
+
+    eliminarEgreso(egresoList:Egreso[]):void{
+        this.egresoList = egresoList;
+        this.calcularTotalOperacion("egresos");
+        this.actualizarTotalEfectivo();
+    }
+/*
     agregarEgreso() : void {
         console.log(this.egreso)
         this.egresoList = [
@@ -502,7 +552,7 @@ export class RendicionFormComponent implements OnInit{
         this.calcularTotalOperacion("egresos");
         this.actualizarTotalEfectivo();
     }
-
+*/
     agregarRendicionYPF() : void {
         this.rendicionYPFList = [
             ... this.rendicionYPFList,
@@ -523,6 +573,21 @@ export class RendicionFormComponent implements OnInit{
         this.ypfCliente.nativeElement.focus();
     }
 
+    actualizarIngreso(ingresoList : OtroIngreso[]) : void {
+        this.otroIngresoList = ingresoList
+        //this.otroIngreso = new OtroIngreso();
+        this.calcularTotalOperacion("otroIngreso")
+        this.actualizarTotalEfectivo();
+        //this.otrosIngresosInput.nativeElement.focus();
+    }
+/*
+    eliminarOtroIngreso(ingresoList : OtroIngreso[]):void{
+        this.otroIngresoList = ingresoList
+        
+        this.calcularTotalOperacion("otroIngreso");
+        this.actualizarTotalEfectivo();
+    }*/
+/*
     agregarOtroIngreso() : void {
         this.otroIngresoList = [
             ... this.otroIngresoList,
@@ -543,7 +608,7 @@ export class RendicionFormComponent implements OnInit{
         this.calcularTotalOperacion("otroIngreso");
         this.actualizarTotalEfectivo();
     }
-
+*/
     agregarIngresoACuentaEmisor():void{
         this.ingresoACuentaEmisorList = [
             ... this.ingresoACuentaEmisorList,
@@ -634,10 +699,10 @@ export class RendicionFormComponent implements OnInit{
                 )
         }
         if(entidad == "otroIngreso"){
-            this.otrosIngresos = 0;
+            this.totalIngreso = 0;
                 this.otroIngresoList.forEach(
                     ingreso =>{
-                        this.otrosIngresos = this.otrosIngresos + +ingreso.importe
+                        this.totalIngreso = this.totalIngreso + +ingreso.importe
                     }
                 )
         }
@@ -734,10 +799,10 @@ export class RendicionFormComponent implements OnInit{
         this.fechaRendicion = new Date();
         this.diferenciaRendicion = 0;
     
-        this.otroIngreso  = new OtroIngreso();
+        //this.otroIngreso  = new OtroIngreso();
         this.otroIngresoList  = [];
     
-        this.otrosIngresos  = 0;
+        //this.otrosIngresos  = 0;
         this.ingresosACuentaEmisor  = 0;
     
         this.rendicionConTransferencia  = new RendicionConTransferencia();
@@ -761,7 +826,7 @@ export class RendicionFormComponent implements OnInit{
         this.rendicionYPF  = new RendicionYPF();
         this.rendicionYPFList  = []
     
-        this.egreso  = new Egreso();
+        //this.egreso  = new Egreso();
         this.egresoList  = []
     
         this.totalEgresos  = 0;
