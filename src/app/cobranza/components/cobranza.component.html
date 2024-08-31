@@ -72,7 +72,8 @@
             -->
             <br>
             <app-ingreso-form
-                [conceptoList]="conceptoList">
+                [conceptoList]="conceptoList"
+                (enviarIngresoActualizado)="actualizarIngresoList($event)">
             </app-ingreso-form>
             <br>
             <div class="row">

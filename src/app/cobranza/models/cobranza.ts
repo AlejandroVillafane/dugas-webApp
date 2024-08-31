@@ -3,8 +3,14 @@ import { Legajo } from "../../legajos/models/legajo";
 export class Cobranza{
     fecha!:string;
     legajo!:Legajo;
-    cliente!:string;
+    /*cliente!:string;
     importe!:number;
     recibo!:string;
-    observacion!:string;
+    observacion!:string;*/
+    ingreso!:any[];
+
+
+    constructor() {
+        this.ingreso = []; // Inicializar el array 'detalle' como un array vacío
+    }
 }

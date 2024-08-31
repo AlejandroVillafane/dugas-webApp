@@ -18,7 +18,7 @@ import { MedioDePago } from '../../medioDePago/models/medioDePago';
 export class EgresoFormComponent {
 
   egreso:Egreso = new Egreso();
-  totalEgresos : number = 0;
+  @Input() totalEgresos : number = 0;
 
   @Input() conceptoList : Concepto[] = []
   @Input() egresoList : Egreso[] = []

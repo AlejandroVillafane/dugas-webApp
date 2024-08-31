@@ -15,9 +15,9 @@ import { CommonModule } from '@angular/common';
 export class IngresoFormComponent {
 
   titulo : string = "Ingresos";
-  totalIngreso : number = 0;
+  @Input() totalIngreso : number = 0;
   otroIngreso : OtroIngreso = new OtroIngreso();
-  otroIngresoList : OtroIngreso[] = [];
+  @Input() otroIngresoList : OtroIngreso[] = [];
   
   @Input() conceptoList : Concepto[] = []
   @Output() enviarIngresoActualizado = new EventEmitter<OtroIngreso[]>();

@@ -28,11 +28,12 @@ export class CobranzaService{
                             apellido:cobranzaDTO.legajo.apellido,
                             cuil:cobranzaDTO.legajo.cuil,
                             dni:cobranzaDTO.legajo.dni,
-                        },
+                        },/*
                         cliente:cobranzaDTO.cliente,
                         importe:cobranzaDTO.importe,
                         recibo:cobranzaDTO.recibo,
-                        observacion:cobranzaDTO.observacion
+                        observacion:cobranzaDTO.observacion*/
+                        ingreso:cobranzaDTO.ingresos
                     }
                 }
                     

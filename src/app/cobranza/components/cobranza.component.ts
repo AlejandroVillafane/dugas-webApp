@@ -10,6 +10,7 @@ import { CobranzaService } from '../services/cobranza.service';
 import { IngresoFormComponent } from '../../components/ingresos/ingreso-form/ingreso-form.component';
 import { ConceptoService } from '../../conceptos/services/concepto.service';
 import { Concepto } from '../../conceptos/models/concepto';
+import { OtroIngreso } from '../../rendicion/models/otroIngreso';
 
 @Component({
   selector: 'app-cobranza',
@@ -25,6 +26,7 @@ export class CobranzaComponent implements OnInit {
   
   titulo:string = "Cobranza"
   conceptoList : Concepto[] = [];
+  ingresoList : OtroIngreso[] = []
   legajoHabilitado:boolean=true
   legajoAcomHabilitado:boolean=false
   movilHabilitado:boolean=false
@@ -34,6 +36,7 @@ export class CobranzaComponent implements OnInit {
   respuestaModalMensaje: boolean = false;
 
   cobranza:Cobranza = new Cobranza();
+  
   ngOnInit(): void {
     this.conceptoService.listarConceptos().subscribe(response=>{
       this.conceptoList = response;
@@ -49,13 +52,19 @@ export class CobranzaComponent implements OnInit {
 
   agregarLegajo(legajo:Legajo){
     this.cobranza.legajo = legajo;
-}
+  }
 
-guardarCobranza(form: NgForm): void {
-  this.cobranzaService.guardarCobranza(this.cobranza).subscribe((response: any) => {
-      this.modalMensaje = response.mensaje; // Si response es un string, lo asignas directamente
-      this.popUpModalMensaje = true;
-      form.reset();
-  });
-}
+  actualizarIngresoList(ingresos:OtroIngreso[]):void{
+    
+    this.ingresoList = ingresos;
+    this.cobranza.ingreso = this.ingresoList
+  }
+
+  guardarCobranza(form: NgForm): void {
+    this.cobranzaService.guardarCobranza(this.cobranza).subscribe((response: any) => {
+        this.modalMensaje = response.mensaje; // Si response es un string, lo asignas directamente
+        this.popUpModalMensaje = true;
+        form.reset();
+    });
+  }
 }

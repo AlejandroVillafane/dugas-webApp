@@ -136,6 +136,8 @@
 
         <app-ingreso-form
             [conceptoList]="conceptoList"
+            [otroIngresoList]="otroIngresoList"
+            [totalIngreso]="totalIngreso"
             (enviarIngresoActualizado)="actualizarIngreso($event)">
         </app-ingreso-form>
     <!--
@@ -582,6 +584,7 @@
         </table>
 
         <app-egresoForm 
+            [totalEgresos]="totalEgresos"
             [conceptoList]="conceptoList"
             [egresoList]="egresoList"
             (egresoAgregado)="agregarEgreso($event)"
