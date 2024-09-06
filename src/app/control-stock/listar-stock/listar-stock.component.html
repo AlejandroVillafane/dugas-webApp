@@ -1,0 +1,19 @@
+
+<h1>Listar stock</h1>
+<div class="container" *ngIf="factura">
+  <h2>Factura del {{ factura.fecha }}</h2>
+  <div class="proveedor-info">
+    <p><strong>Proveedor:</strong> {{ factura.proveedor.RazonSocial }} (CUIT: {{ factura.proveedor.cuit }})</p>
+  </div>
+
+  <div class="product-details">
+    <div *ngFor="let detalle of factura.detalleFactura">
+      <h3>Producto: {{ detalle.producto.tipoProducto.nombre }}</h3>
+      <p><strong>Código:</strong> {{ detalle.codigo }}</p>
+      <p><strong>Descripción:</strong> {{ detalle.descripcion }}</p>
+      <p class="price"><strong>Precio Unitario:</strong> {{ detalle.precioUnitario | currency }}</p>
+      <p><strong>Cantidad:</strong> {{ detalle.cantidad }}</p>
+      <p class="total"><strong>Importe Total:</strong> {{ detalle.importeTotal | currency }}</p>
+    </div>
+  </div>
+</div>

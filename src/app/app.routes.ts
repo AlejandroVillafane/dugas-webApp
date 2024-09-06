@@ -16,6 +16,8 @@ import { EgresoComponent } from './egreso/components/egreso.component';
 import { CobranzaComponent } from './cobranza/components/cobranza.component';
 import { EgresoListComponent } from './egreso/components/egreso-list/egreso-list.component';
 import { CobranzaListComponent } from './cobranza/components/cobranza-list/cobranza-list.component';
+import { AgregarStockComponent } from './control-stock/agregar-stock/agregar-stock.component';
+import { ListarStockComponent } from './control-stock/listar-stock/listar-stock.component';
 
 export const routes: Routes = [
     //{path:'',component:AppComponent},
@@ -35,6 +37,10 @@ export const routes: Routes = [
     {path:'rendicionForm',component:RendicionFormComponent},
     {path:'egresos',component:EgresoComponent},
     {path:'egresoList',component:EgresoListComponent},
-    {path:'cobranzas',component:CobranzaComponent},
-    {path:'cobranzaList',component:CobranzaListComponent}
+    {path:'cobranzas ',component:CobranzaComponent},
+    {path:'cobranzaList',component:CobranzaListComponent},
+    {path:'agregar-stock',component:AgregarStockComponent},
+    {path:'listar-stock',component:ListarStockComponent}
+
+
 ];

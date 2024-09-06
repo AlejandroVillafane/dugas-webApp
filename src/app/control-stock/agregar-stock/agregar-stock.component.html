@@ -1,0 +1,75 @@
+<div class="stock-card">
+  <h3 style="font-weight: bold;">AGREGAR STOCK</h3>
+  <form #stockForm="ngForm" (ngSubmit)="agregarStock(stockForm)" style="text-align: center;">
+    <div class="form-group">
+      <label for="proveedor">Proveedor</label>
+      <select id="proveedor" [(ngModel)]="nuevoStock.proveedor" name="proveedor" required style="width: 60%;">
+        <option *ngFor="let proveedor of proveedores" [ngValue]="proveedor">
+          {{ proveedor.razonSocial }}
+        </option>
+      </select>
+      <div *ngIf="stockForm.submitted && !nuevoStock.proveedor" class="error-message">Proveedor es requerido.</div>
+    </div>
+    <div class="form-group">
+      <label for="fechaFactura">Fecha de la Factura</label>
+      <input id="fechaFactura" type="date" [(ngModel)]="nuevoStock.fechaFactura" name="fechaFactura" required />
+      <div *ngIf="stockForm.submitted && !nuevoStock.fechaFactura" class="error-message">Fecha de la Factura es requerida.</div>
+    </div>
+    <div class="form-group">
+      <label for="numFactura">Número de Factura</label>
+      <input id="numFactura" type="text" [(ngModel)]="nuevoStock.numFactura" name="numFactura" required />
+      <div *ngIf="stockForm.submitted && !nuevoStock.numFactura" class="error-message">Número de Factura es requerido.</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Cantidad</th>
+          <th>Descripción</th>
+          <th>Producto</th>
+          <th>P. Unitario</th>
+          <th>Imp. Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos">
+          <td>{{ producto.codigo }}</td>
+          <td>{{ producto.cantidad }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>{{ producto.producto.tipoProducto.nombre }} - {{ producto.producto.tipoEnvase.nombre }} ({{ producto.producto.tipoEnvase.capacidad }}L)</td>
+          <td>{{ producto.precioUnitario }}</td>
+          <td>{{ producto.importeTotal }}</td>
+        </tr>
+        <tr>
+          <td><input type="text" [(ngModel)]="nuevoProducto.codigo" name="codigo" /></td>
+          <td><input type="number" [(ngModel)]="nuevoProducto.cantidad" name="cantidad" /></td>
+          <td><input type="text" [(ngModel)]="nuevoProducto.descripcion" name="descripcion" /></td>
+          <!-- Select para productos -->
+          <td>
+            <select [(ngModel)]="nuevoProducto.producto" name="producto" required>
+              <option *ngFor="let producto of productosList" [ngValue]="producto">
+                {{ producto.tipoProducto.nombre }} - {{ producto.tipoEnvase.nombre }} ({{ producto.tipoEnvase.capacidad }}L)
+              </option>
+            </select>
+            <div *ngIf="stockForm.submitted && !nuevoProducto.producto" class="error-message">Producto es requerido.</div>
+          </td>
+          <td><input type="number" [(ngModel)]="nuevoProducto.precioUnitario" name="precioUnitario" /></td>
+          <td>{{ nuevoProducto.cantidad * nuevoProducto.precioUnitario }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display: flex; justify-content: space-around; margin-top: 10px;">
+      <button type="button" (click)="agregarProducto()">Agregar</button>
+      <button type="submit" >Guardar</button>
+    </div>
+  </form>
+  <ngb-alert *ngFor="let alert of alerts; trackBy: trackAlert" [type]="alert.type" (closed)="close(alert)">
+    {{ alert.message }}
+  </ngb-alert>
+
+</div>
+<div>
+  <h3>Total General: {{ calcularTotalGeneral() | currency }}</h3>
+</div>

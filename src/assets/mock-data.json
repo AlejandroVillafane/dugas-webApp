@@ -1,0 +1,45 @@
+{
+  "fecha": "02/09/2024",
+  "proveedor": {
+    "cuit": 3051548849,
+    "RazonSocial": "YPF Gas S.A."
+  },
+  "detalleFactura": [
+    {
+      "codigo": 1234,
+      "producto": {
+        "tipoProducto": {
+          "id": 1,
+          "nombre": "butano"
+        },
+        "tipoEnvase": {
+          "id": 1,
+          "nombre": "Garrafa",
+          "capacidad": 20
+        }
+      },
+      "descripcion": "Garrafa de butano de 20 litros",
+      "precioUnitario": 2500,
+      "cantidad": 2,
+      "importeTotal": 5000
+    },
+    {
+      "codigo": 5678,
+      "producto": {
+        "tipoProducto": {
+          "id": 2,
+          "nombre": "propano"
+        },
+        "tipoEnvase": {
+          "id": 1,
+          "nombre": "Garrafa",
+          "capacidad": 20
+        }
+      },
+      "descripcion": "Garrafa de propano de 20 litros",
+      "precioUnitario": 3000,
+      "cantidad": 3,
+      "importeTotal": 9000
+    }
+  ]
+}

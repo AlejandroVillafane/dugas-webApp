@@ -6,7 +6,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               ABM
@@ -49,6 +49,15 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" (click)="moduloSelect('cobranzas')">Nueva Cobranza</a></li>
               <li><a class="dropdown-item" (click)="moduloSelect('cobranzaList')">Cobranzas</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Control de stock
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="moduloSelect('agregar-stock')">Agregar Stock</a></li>
+              <li><a class="dropdown-item" (click)="moduloSelect('listar-stock')">Listar Stock</a></li>
             </ul>
           </li>
         </ul>

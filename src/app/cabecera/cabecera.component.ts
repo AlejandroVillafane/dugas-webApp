@@ -68,9 +68,16 @@ export class CabeceraComponent {
       this.router.navigate(["cobranzaList"])
       break;
 
-   
+      case "agregar-stock":
+        this.router.navigate(["agregar-stock"])
+        break;
+        case "listar-stock":
+          this.router.navigate(["listar-stock"])
+          break;
+
+
     }
-     
+
   }
 
   cerrarSesion(){

@@ -1,0 +1,91 @@
+/* Estilos generales del contenedor de la factura */
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+/* Encabezado de la factura */
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+}
+
+/* Información del proveedor */
+.proveedor-info {
+  margin-bottom: 20px;
+  font-weight:bold;
+}
+
+.proveedor-info p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #555;
+}
+
+/* Detalles de los productos */
+.product-details {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.product-details h3 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: #007bff;
+  font-weight:bold;
+}
+
+/* Estilos para los detalles del producto */
+.product-details p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #333;
+}
+
+/* Estilo para el precio y el importe total */
+.product-details .price,
+.product-details .total {
+  font-weight: bold;
+}
+.total{
+  text-align: end;
+}
+
+.product-details .price {
+  color: #28a745;
+}
+
+.product-details .total {
+  color: #dc3545;
+  font-size: 1.1em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  .product-details h3 {
+    font-size: 1.3em;
+  }
+}
+
+h1{
+  text-align: center;
+  color: black;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  padding-top :10px
+}
