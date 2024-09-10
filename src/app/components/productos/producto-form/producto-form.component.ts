@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './producto-form.component.css'
 })
 export class ProductoFormComponent implements OnInit {
-  
+
   groupedProductos: any[] = [];
   productos : Producto[] = [];
   titulo : string = "Venta de unidades Fisicas";
@@ -28,7 +28,7 @@ export class ProductoFormComponent implements OnInit {
       this.groupProductosByTipoProducto();
   });
   }
-  
+
   actualizarValores(productoRendicion: any, groupedProductos:any):void{
     const datos = { productoRendicion, groupedProductos };
     this.actualizarValoresProducto.emit(datos);

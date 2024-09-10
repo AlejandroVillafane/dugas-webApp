@@ -1,80 +1,98 @@
+<div class="card-container">
+
 <div class="row">
   <modal-mensaje
-            [popUpModalMensaje]="popUpModalMensaje" 
-            (response)="closeModalMensaje($event)"
-            [modalMensaje]="modalMensaje"
-            >
+    [popUpModalMensaje]="popUpModalMensaje"
+    (response)="closeModalMensaje($event)"
+    [modalMensaje]="modalMensaje">
   </modal-mensaje>
-  <div *ngIf="legajoHabilitado" class="col">
-    <label for="legajo">Legajo chofer: </label> <br>
-    <input #l
-      [ngClass]="{'requerido': searchTerm == ''}"
-      type="text"
-      name="legajo"
-      id="legajo"
-      placeholder="Buscar legajo"
-      [(ngModel)]="searchTerm"
-      (input)="filterLegajos()"
-      (focus)="onFocus()"
-      (blur)="onBlur()"
+
+ <!-- Sección Legajo Chofer -->
+<div *ngIf="legajoHabilitado" class=" col" >
+  <label for="legajo">Legajo chofer:</label>
+  <input
+    #legajoInput="ngModel"
+    [ngClass]="{'requerido': legajoInput.invalid && legajoInput.touched}"
+    type="text"
+    id="legajo"
+    name="legajo"
+    placeholder="Buscar legajo"
+    [(ngModel)]="searchTerm"
+    (input)="filterLegajos()"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    required
+  />
+  <!-- Show error message only if the input is touched and invalid -->
+  <label *ngIf="legajoInput.invalid && legajoInput.touched" class="error" for="legajo">Campo requerido</label>
+  <ul *ngIf="isInputFocused" class="list-group">
+    <li *ngFor="let legajo of filteredLegajoList" (click)="selectLegajo(legajo)" class="list-group-item">
+      {{ legajo.nombre }} {{ legajo.apellido }} - {{ legajo.numeroLegajo }}
+    </li>
+  </ul>
+</div>
+
+
+  <!-- Sección Acompañante -->
+ <!-- Sección Acompañante -->
+<div *ngIf="legajoAcomHabilitado" class="col">
+  <div>
+    <input
+      #checkAcompanante
+      type="checkbox"
+      id="visibleAcompanante"
+      [(ngModel)]="showAcompanante"
     />
-    <label *ngIf="searchTerm== '' " for="legajo">Campo requerido</label> 
-    <ul *ngIf="isInputFocused" class="list-group">
-      <li *ngFor="let legajo of filteredLegajoList" (click)="selectLegajo(legajo)" class="list-group-item">
-        {{ legajo.nombre }} {{ legajo.apellido }} - {{ legajo.numeroLegajo }}
-      </li>
-    </ul>
-    
+    <label for="visibleAcompanante">Acompañante</label>
   </div>
-<div *ngIf="legajoAcomHabilitado">
-  <div  class="col" >
-    <input #checkAcompanante (change)="0" type="checkbox" id="visibleAcompanante" value=true>
-    <label for="visibleAcompanante">Acompañante</label> 
-  </div>
-
-  <div *ngIf="legajoAcomHabilitado" class="col">
-    
-    
-    <div *ngIf="checkAcompanante.checked">
-      <label for="legajoAcom">Legajo chofer: </label> <br>
-      <input 
-        type="text"
-        id="legajoAcom"
-        placeholder="Buscar legajo"
-        name="legajoAcompañante" 
-        [(ngModel)]="searchTermAcompanante"
-        (input)="filterLegajosAcompanante()"
-        (focus)="onFocusAcompanante()"
-        (blur)="onBlurAcompanante()"
-      />
-    </div>
-
-    <ul class="list-group" *ngIf="isInputFocusedAcompanante">
+  <div *ngIf="showAcompanante">
+    <label for="legajoAcom">Legajo chofer:</label>
+    <input
+      #legajoAcomInput="ngModel"
+      [ngClass]="{'requerido': legajoAcomInput.invalid && legajoAcomInput.touched}"
+      type="text"
+      id="legajoAcom"
+      name="legajoAcompañante"
+      placeholder="Buscar legajo"
+      [(ngModel)]="searchTermAcompanante"
+      (input)="filterLegajosAcompanante()"
+      (focus)="onFocusAcompanante()"
+      (blur)="onBlurAcompanante()"
+      required
+    />
+    <!-- Show error message only if the input is touched and invalid -->
+    <label *ngIf="legajoAcomInput.invalid && legajoAcomInput.touched" class="error" for="legajoAcom">Campo requerido</label>
+    <ul *ngIf="isInputFocusedAcompanante" class="list-group">
       <li class="list-group-item" *ngFor="let legajo of filteredLegajoAcompananteList" (click)="selectLegajoAcompanante(legajo)">
         {{ legajo.nombre }} {{ legajo.apellido }} - {{ legajo.numeroLegajo }}
       </li>
     </ul>
-    
   </div>
 </div>
-  <div *ngIf="movilHabilitado" class="col">
-    <label for="movil">Movil:</label> <br>
-    <input
-      [ngClass]="{'requerido': searchTermMovil ==''}"
-      type="text"
-      placeholder="Buscar Movil"
-      id="movil"
-      name="movil" 
-      [(ngModel)]="searchTermMovil"
-      (input)="filterMoviles()"
-      (focus)="onFocusMovil()"
-      (blur)="onBlurMovil()"
-    />
-    <label *ngIf="searchTermMovil== '' " for="movil">Campo requerido</label> 
-    <ul class="list-group" *ngIf="isInputFocusedMovil">
-      <li class="list-group-item" *ngFor="let movil of filteredMovilList" (click)="selectMovil(movil)">
-        {{ movil.dominio }} - {{ movil.numeroInterno }}
-      </li>
-    </ul>
-  </div>
+
+<!-- Sección Movil -->
+<div *ngIf="movilHabilitado" class="col">
+  <label for="movil">Movil:</label>
+  <input
+    #movilInput="ngModel"
+    [ngClass]="{'requerido': movilInput.invalid && movilInput.touched}"
+    type="text"
+    id="movil"
+    name="movil"
+    placeholder="Buscar Movil"
+    [(ngModel)]="searchTermMovil"
+    (input)="filterMoviles()"
+    (focus)="onFocusMovil()"
+    (blur)="onBlurMovil()"
+    required
+  />
+  <!-- Show error message only if the input is touched and invalid -->
+  <label *ngIf="movilInput.invalid && movilInput.touched" class="error" for="movil">Campo requerido</label>
+  <ul *ngIf="isInputFocusedMovil" class="list-group">
+    <li class="list-group-item" *ngFor="let movil of filteredMovilList" (click)="selectMovil(movil)">
+      {{ movil.dominio }} - {{ movil.numeroInterno }}
+    </li>
+  </ul>
+</div>
+
 </div>

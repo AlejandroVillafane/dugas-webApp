@@ -60,8 +60,21 @@
               <li><a class="dropdown-item" (click)="moduloSelect('listar-stock')">Listar Stock</a></li>
             </ul>
           </li>
+          <li>
+            <a class="nav-link "(click)="moduloSelect('gestion-cajas')">
+              Cajas
+            </a>
+
+          </li>
+          <ul>
+             <button (click)="cerrarCaja()">Cerrar Caja Total</button>
+          </ul>
         </ul>
-        <button class="btn btn-outline-success" (click)="cerrarSesion()">Cerrar Sesion</button>
+        <div class="caja-info">
+          <span>Fecha Apertura: {{ caja?.fechaApertura | date: 'dd/MM/yyyy' }}</span>
+          <span >Usuario: {{  userNameAfterLogin }}</span>
+        </div>
+        <button class="btn btn-outline-success"  (click)="logout()">Cerrar Sesion</button>
       </div>
     </div>
   </nav>

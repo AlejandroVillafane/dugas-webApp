@@ -1,0 +1,84 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.cajas-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.caja-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.caja-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.caja-card p {
+  margin: 5px 0;
+}
+
+.abierta {
+  color: green;
+  font-weight: bold;
+}
+
+.detalle-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.detalle-btn:hover {
+  background-color: #0056b3;
+}
+
+.nueva-caja {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.abrir-btn {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.abrir-btn:hover {
+  background-color: #218838;
+}
+
+.caja-info {
+  display: flex;
+  flex-direction: flex; /* Coloca los elementos en una columna */
+  gap: 10px; /* Añade un espacio de 10px entre los elementos */
+  margin: 20px 0; /* Añade un margen superior e inferior de 20px */
+  padding: 10px; /* Añade un espacio interior de 10px */
+  border: 1px solid #ccc; /* Opcional: un borde alrededor del contenedor */
+  border-radius: 8px; /* Opcional: bordes redondeados */
+  background-color: #f9f9f9; /* Opcional: fondo claro */
+  margin-right: 10px; }
+

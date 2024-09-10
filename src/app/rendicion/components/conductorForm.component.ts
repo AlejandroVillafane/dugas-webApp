@@ -18,11 +18,11 @@ import { ModalMensajeComponent } from "./modalMensaje.component";
 })
 
 export class ConductorFormComponent implements OnInit{
-    
+
     popUpModalMensaje: boolean = false;
     modalMensaje:string = "";
     respuestaModalMensaje: boolean = false;
-  
+
     @Output() legajo = new EventEmitter<Legajo>();
     @Output() legajoAcom = new EventEmitter<Legajo>();
     @Output() movil = new EventEmitter<Movil>();
@@ -48,9 +48,10 @@ export class ConductorFormComponent implements OnInit{
     searchTermMovil: string = '';
     selectedMovil: Movil | null = null;
     isInputFocusedMovil: boolean = false;
+    showAcompanante: boolean = false; // Controla la visibilidad del campo de entrada
 
     constructor(
-        private legajoService : LegajoService, 
+        private legajoService : LegajoService,
         private movilService : MovilService
     ){}
 
@@ -90,7 +91,7 @@ export class ConductorFormComponent implements OnInit{
       onFocus(): void {
         this.isInputFocused = true;
       }
-    
+
       onBlur(): void {
         setTimeout(() => {
           this.isInputFocused = false;
@@ -120,17 +121,15 @@ export class ConductorFormComponent implements OnInit{
       onFocusAcompanante(): void {
         this.isInputFocusedAcompanante = true;
       }
-    
-      onBlurAcompanante(): void {
-        setTimeout(() => {
-          this.isInputFocusedAcompanante = false;
-        }, 200);  // Agregar un pequeño retraso para permitir la selección del elemento
+
+      onBlurAcompanante() {
+        this.isInputFocusedAcompanante = false;
       }
 
       filterMoviles(): void {
         this.filteredMovilList = this.movilList.filter(movil =>
           movil.dominio.toLowerCase().includes(this.searchTermMovil.toLowerCase()) ||
-          String(movil.numeroInterno).toLowerCase().includes(this.searchTermMovil.toLowerCase()) 
+          String(movil.numeroInterno).toLowerCase().includes(this.searchTermMovil.toLowerCase())
         );
       }
 
@@ -140,11 +139,11 @@ export class ConductorFormComponent implements OnInit{
         this.isInputFocusedMovil = false;  // Ocultar la lista cuando se selecciona un legajo
         this.movil.emit(movil);
       }
-    
+
       onFocusMovil(): void {
         this.isInputFocusedMovil = true;
       }
-    
+
       onBlurMovil(): void {
         setTimeout(() => {
           this.isInputFocusedMovil = false;
@@ -159,7 +158,7 @@ export class ConductorFormComponent implements OnInit{
     }
 
       resetVariables() {
-        
+
         this.filteredLegajoList = [];
         this.searchTerm = '';
         this.selectedLegajo = null;
@@ -169,6 +168,6 @@ export class ConductorFormComponent implements OnInit{
         this.filteredMovilList = [];
         this.searchTermMovil = '';
         this.selectedMovil = null;
-    
+
       }
 }

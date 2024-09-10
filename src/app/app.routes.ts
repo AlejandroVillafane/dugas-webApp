@@ -18,9 +18,9 @@ import { EgresoListComponent } from './egreso/components/egreso-list/egreso-list
 import { CobranzaListComponent } from './cobranza/components/cobranza-list/cobranza-list.component';
 import { AgregarStockComponent } from './control-stock/agregar-stock/agregar-stock.component';
 import { ListarStockComponent } from './control-stock/listar-stock/listar-stock.component';
+import { CajasComponent } from './cajas/cajas.component';
 
 export const routes: Routes = [
-    //{path:'',component:AppComponent},
     {path:'login',component:LoginComponent},
     {path:'home',component:RendicionComponent},
     {path:'abmLegajo',component:LegajoComponent},
@@ -34,13 +34,13 @@ export const routes: Routes = [
     {path:'abmConceptos',component:ConceptoComponent},
     {path:'rendiciones',component:RendicionComponent},
     {path:'rendicion',component:ShowRendicionComponent},
-    {path:'rendicionForm',component:RendicionFormComponent},
+    {path:'rendicionForm/:cajaId',component:RendicionFormComponent},
     {path:'egresos',component:EgresoComponent},
     {path:'egresoList',component:EgresoListComponent},
-    {path:'cobranzas ',component:CobranzaComponent},
+    {path:'cobranzas',component:CobranzaComponent},
     {path:'cobranzaList',component:CobranzaListComponent},
     {path:'agregar-stock',component:AgregarStockComponent},
-    {path:'listar-stock',component:ListarStockComponent}
-
-
+    {path:'listar-stock',component:ListarStockComponent},
+    {path:'gestion-cajas',component:CajasComponent},
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];

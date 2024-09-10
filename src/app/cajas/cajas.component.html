@@ -1,0 +1,43 @@
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">DUGAS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+
+           <button >Cerrar Caja Total</button>
+        </ul>
+      <div class="caja-info">
+        <span >Usuario: {{  userNameAfterLogin }}</span>
+      </div>
+      <button class="btn btn-outline-success"  (click)="logout()" >Cerrar Sesion</button>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <h2>Gestión de Cajas</h2>
+
+  <!-- Lista de cajas -->
+  <div class="cajas-list">
+    <div *ngFor="let caja of cajas" class="caja-card">
+      <h3>Caja ID: {{ caja.id }}</h3>
+      <p><strong>Usuario ID:</strong> {{ caja.usuario_id }}</p>
+      <p><strong>Fecha de Apertura:</strong> {{ caja.fechaApertura | date: 'short' }}</p>
+      <p *ngIf="caja.fecha_cierre"><strong>Fecha de Cierre:</strong> {{ caja.fecha_cierre | date: 'short' }}</p>
+      <p *ngIf="!caja.fecha_cierre" class="abierta">Caja abierta</p>
+      <button class="detalle-btn" (click)="verMovimientos(caja.id)">Ver Movimientos</button>
+    </div>
+  </div>
+
+  <!-- Botón para abrir una nueva caja si no existe -->
+  <div class="nueva-caja" *ngIf="showOpenCajaButton">
+    <p>No hay caja abierta para hoy. ¿Deseas abrir una caja?</p>
+    <button mat-fab extended (click)="abrirCaja()" class="abrir-btn">Abrir Caja</button>
+
+  </div>
+</div>

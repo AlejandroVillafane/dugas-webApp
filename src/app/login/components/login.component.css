@@ -1,0 +1,90 @@
+/* Contenedor general del login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  background-image: url('/assets/pxfuel.jpg'); /* Ajusta el nombre y la extensión si es diferente */
+  background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repite la imagen */
+  font-family: 'Poppins', sans-serif @!important;}
+
+
+/* Caja de login */
+.login-box {
+  background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco con mayor transparencia */
+  padding: 50px 40px;
+  border-radius: 15px; /* Bordes más redondeados */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); /* Sombra más marcada */
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Estilo para el título */
+.login-box h2 {
+  margin-bottom: 25px;
+  font-size: 26px;
+  color: #333333;
+  font-weight: 600;
+  text-transform: uppercase; /* Para darle un toque moderno */
+}
+
+/* Estilos para las etiquetas y campos de entrada */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666666;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 8px; /* Bordes redondeados */
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+/* Estilos para cuando el input está en foco */
+.form-control:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(52, 152, 219, 0.5); /* Color azul suave para el foco */
+}
+
+/* Estilo del botón de login */
+.btn-primary {
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  transform: translateY(-3px); /* Efecto de hover con elevación */
+}
+
+/* Espaciado adicional debajo de los inputs */
+.form-group input {
+  margin-bottom: 15px;
+}
+
+/* Espaciado general */
+br {
+  margin-bottom: 12px;
+}

@@ -9,11 +9,13 @@ import { Router } from "@angular/router";
     selector:"login-component",
     templateUrl:"login.component.html",
     standalone:true,
-    imports:[FormsModule,CommonModule]
+    imports:[FormsModule,CommonModule],
+    styleUrls: ['./login.component.css']
+
 
 })
 export class LoginComponent{
-    
+
     constructor(private authService: AuthService, private router: Router) {}
 
     @Input() loginModel : Login = new Login();
@@ -21,19 +23,30 @@ export class LoginComponent{
     @Output() loginEvent = new EventEmitter();
 /*
     login(form:NgForm):void{
-       this.loginEvent.emit(this.loginModel); 
+       this.loginEvent.emit(this.loginModel);
     }
-*/
+*/  userNameAfterLogin: string | null = null;
+
     username: string = '';
     password: string = '';
     login(): void {
-        this.authService.login(this.username, this.password).subscribe(success => {
-          if (success) {
-            this.loginEvent.emit();
-            this.router.navigate(['rendicionForm']);
-          } else {
-            alert('Login failed');
-          }
-        });
-      }
+      this.authService.login(this.username, this.password).subscribe(response => {
+        if (response && response.authenticatedUser) {
+          // Captura el nombre de usuario desde la respuesta
+          this.userNameAfterLogin = response.authenticatedUser.userName;
+          console.log('Nombre de usuario:', this.userNameAfterLogin);
+
+          // Emitir el evento de login para otros componentes si es necesario
+          this.loginEvent.emit();
+
+          // Redirigir al usuario a otra página
+          this.router.navigate(['gestion-cajas']);
+        } else {
+          alert('Login failed');
+        }
+      }, error => {
+        console.error('Error en el login:', error);
+        alert('Login failed');
+      });
+    }
 }

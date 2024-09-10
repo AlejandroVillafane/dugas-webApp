@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { AbmComponent } from './abm/components/abm.component';
 import { RendicionComponent } from './rendicion/components/rendicion.component';
 import { RendicionFormComponent } from './rendicion/components/rendicionForm.component';
@@ -22,33 +22,57 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { CabeceraComponent } from './cabecera/cabecera.component';
 import { AuthService } from './auth/service/auth.service';
+import { CajasComponent } from './cajas/cajas.component';
+import { AuthCommunicationService } from './services/auth-communication.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
+    RouterOutlet,
     LoginComponent,
     CabeceraComponent,
-    CommonModule
+    CommonModule,
+    CajasComponent
   ],
   templateUrl: 'app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  
-  constructor(private loginService:LoginService, private authService : AuthService){}
-  
-  
-
   title = 'Dugas';
-  isAuth:boolean = false;
-  ngOnInit(){
+  isAuth: boolean = false;
+  showNavbar: boolean = true;
+  isCajaScreen: boolean = false;
+  cajaId: number | null = null;
+  constructor(private authService: AuthService, private router: Router,private authCommunicationService : AuthCommunicationService) { }
+
+  ngOnInit() {
     this.isAuth = this.authService.isAuthenticated();
-    console.log(this.isAuth)
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showNavbar = !event.url.includes('/gestion-cajas');
+        this.isCajaScreen = event.url.includes('/gestion-cajas');
+      }
+    });
+
+    if (this.isAuth) {
+      this.router.navigate(['/gestion-cajas']);
+    }
+    this.authCommunicationService.logOutEvent.subscribe(() => {
+      this.onLogout();
+    });
   }
 
-  login(success:boolean){
-    this.isAuth = success;
+  onLogin() {
+    this.isAuth = true;
+    this.router.navigate(['/gestion-cajas']);
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.isAuth = false;
+    this.showNavbar = true;
+    this.router.navigate(['/login']);
   }
 }

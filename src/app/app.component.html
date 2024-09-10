@@ -1,5 +1,8 @@
-<login-component (loginEvent)="ngOnInit()" *ngIf="!isAuth;else elseContent"></login-component>
+<!-- Mostrar el componente de login solo si no está autenticado -->
+<login-component (loginEvent)="onLogin()" *ngIf="!isAuth && showNavbar; else elseContent"></login-component>
+
 <ng-template #elseContent>
-  <app-cabecera (logOutEvent)="ngOnInit()"></app-cabecera>
-  <router-outlet></router-outlet>  
+  <!-- Si estamos en la pantalla de gestión de cajas, no mostrar la barra de navegación -->
+  <app-cabecera *ngIf="showNavbar" (logOutEvent)="onLogout()"></app-cabecera>
+  <router-outlet></router-outlet>
 </ng-template>

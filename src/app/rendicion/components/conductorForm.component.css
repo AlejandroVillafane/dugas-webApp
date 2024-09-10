@@ -1,3 +1,82 @@
-input.requerido{
-           border-color: red; 
+/* General styles */
+.row {
+  display:inline-flex;
+  flex-wrap:inla;
+  gap: 1rem;
+}
+
+.col {
+  flex: 1;
+  min-width: 200px; /* Adjust based on your layout */
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+/* Label styles */
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Input styles */
+input[type="text"], input[type="date"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Error styles */
+.error {
+  color: red;
+  font-size: 0.875rem;
+}
+
+/* List group styles */
+.list-group {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-group-item {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* Requerido class */
+.requerido {
+  border-color: red;
+}
+
+/* Styles for checkbox */
+input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  max-width: 800px;
+  margin: auto;
 }

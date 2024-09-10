@@ -2,34 +2,51 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { Usuario } from '../../usuarios/models/usuario';
+import { environment } from '../../environment/environment.prod';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
 
   private isLoggedIn = false;
-  usuario:Usuario = new Usuario();
+  usuario: Usuario = new Usuario();
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<boolean> {
+  login(username: string, password: string): Observable<any> {
     this.usuario.userName = username;
     this.usuario.password = password;
-    return this.http.post<{ token: string }>('http://localhost:8080/dugas/users/login',this.usuario).pipe(
-      map(response => {
-        localStorage.setItem('authToken', response.token);
-        this.isLoggedIn = true;
-        return true;
-      }),
-      catchError(error => {
-        console.error('Login error', error);
-        return of(false);
-      })
-    );
+
+    return this.http
+      .post<any>(environment.apiUrl + `users/login`, this.usuario)
+      .pipe(
+        map((response) => {
+          // Guardar el token en localStorage
+          localStorage.setItem('authToken', response.token);
+          // Guardar los datos del usuario en localStorage
+          localStorage.setItem(
+            'authenticatedUser',
+            JSON.stringify(response.authenticatedUser)
+          );
+
+          this.isLoggedIn = true;
+          return response;
+        }),
+        catchError((error) => {
+          console.error('Login error', error);
+          return of(false);
+        })
+      );
   }
 
-  logout(): void {
+  getAuthenticatedUser(): any {
+    const user = localStorage.getItem('authenticatedUser');
+    return user ? JSON.parse(user) : null;
+  }
+
+  logout() {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('authenticatedUser');
     this.isLoggedIn = false;
   }
 

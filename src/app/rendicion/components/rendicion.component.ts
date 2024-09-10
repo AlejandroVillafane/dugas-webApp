@@ -19,7 +19,7 @@ import { Billete } from "../../billetes/components/models/billete";
 import { OtroIngreso } from "../models/otroIngreso";
 import { RendicionService } from "../services/rendicion.service";
 import { CurrencyFormat } from "../../util/currencyFormat";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector:'rendicion-component',
@@ -28,8 +28,10 @@ import { Router } from "@angular/router";
     imports:[FormsModule,CurrencyFormat]
 })
 export class RendicionComponent implements OnInit{
+  cajaId!: number;
 
-    constructor(private rendicionService : RendicionService, private router:Router){}
+
+    constructor(private rendicionService : RendicionService, private router:Router,private route :ActivatedRoute){}
     nuevaRendicionComponent:boolean = false;
     rendiciones : Rendicion[] = [];
     ngOnInit(): void {
@@ -37,6 +39,12 @@ export class RendicionComponent implements OnInit{
                 console.log(rendiciones)
                 this.rendiciones = rendiciones;
             })
+            this.route.params.subscribe(params => {
+              this.cajaId = Number(params['cajaId']);
+              console.log('Caja ID rendicion component:', this.cajaId);
+              // Ahora puedes usar cajaId para consultar detalles de la caja o movimientos
+            });
+
     }
 
     nuevaRendicion():void{
